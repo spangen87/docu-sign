@@ -1,3 +1,15 @@
 from django.contrib import admin
+from .models import Object
 
-# Register your models here.
+
+class ObjectAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'constructor',
+        'contact_person',
+    )
+
+    ordering = ('name',)
+
+
+admin.site.register(Object, ObjectAdmin)
