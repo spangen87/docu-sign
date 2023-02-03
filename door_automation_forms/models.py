@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class Object(models.Model):
@@ -14,7 +15,7 @@ class Object(models.Model):
     constructor = models.CharField(max_length=254, null=True, blank=True, verbose_name='Byggare')
     contact_person = models.CharField(max_length=254, null=True, blank=True, verbose_name='Kontaktperson')
     notes = models.TextField(max_length=500, blank=True, null=True, verbose_name='Anteckningar')
-    drawing = models.FileField(null=True, blank=True, verbose_name='Ladda upp ritning')
+    drawing = models.FileField(null=True, blank=True, verbose_name='Ladda upp ritning', upload_to='uploads')
 
     def __str__(self):
         return self.name

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Object
@@ -36,12 +36,13 @@ def new_object(request):
     Add new object
     """
     if request.method == 'POST':
-        form = ObjectForm()
+        form = ObjectForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Nytt objekt tillagt!')
+            return redirect('object')
         else:
-            messages.error(request, 'Något gick fel. Kolla så att formuläret är korrekt ifyllt.')
+            messages.error(request, form.errors)
     else:
         form = ObjectForm()
 

@@ -14,7 +14,7 @@
     </div>
     <div class="row">
         <div class="col-12 col-md-6 text-center mx-auto mb-5">
-            <form method="POST" id="new-object-form" action="{% url 'new_object' %}" class="form">
+            <form method="POST" id="new-object-form" action="{% url 'new_object' %}" class="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <button type="submit" class="btn btn-primary text-uppercase mb-5">Lägg till objekt</button>
