@@ -65,3 +65,27 @@ def object_details(request, object_id):
     template = 'door_automation_forms/objekt_detaljer.html'
 
     return render(request, template, context)
+
+
+def edit_object(request, object_id):
+    """
+    Edit a existing object
+    """
+    object = get_object_or_404(Object, pk=object_id)
+    if request.method == 'POST':
+        form = ObjectForm(request.POST, request.FILES, instance=object)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Uppdateringar sparade!')
+            return redirect('object')
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = ObjectForm(instance=object)
+    template = 'door_automation_forms/redigera_objekt.html'
+    context = {
+        'form': form,
+        'object': object,
+    }
+
+    return render(request, template, context)

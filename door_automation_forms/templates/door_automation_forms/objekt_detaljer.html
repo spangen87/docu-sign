@@ -7,19 +7,37 @@
 <div class="container h-100">
     <div class="row h-100">
         <div class="col-12 col-md-6 my-auto mx-auto text-center">
-            <h3 class="py-5 mt-2">
+            <h3 class="pt-5 mt-3">
                 Detaljer för: {{ object.name }}
             </h3>
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-md-6 text-center mx-auto">
-            <p><strong>Namn:</strong> {{ object.name }}</p>
-            <p><strong>Adress:</strong> {{ object.address }}</p>
-            <p><strong>Byggare:</strong> {{ object.contructor }}</p>
-            <p><strong>Kontaktperson:</strong> {{ object.contact_person }}</p>
-            <p><strong>Anteckningar:</strong> {{ object.notes }}</p>
-            <p><strong>Ritning:</strong>{% if object.drawing %}<a href="{{ object.drawing.url }}"></a>{% else %} Ingen ritning {% endif %}</p>
+        <div class="col-12 col-md-6 text-left mx-auto mb-5">
+            <div class="card mx-2 mb-5">
+                <div class="card-body">
+                    <p class="card-title"><strong>Namn:</strong></p>
+                    <p class="card-text"> {{ object.name }}</p>
+                    <p><strong>Adress:</strong></p>
+                    <p>{{ object.address|linebreaks }}</p>
+                    <hr>
+                    <p><strong>Byggare:</strong></p>
+                    <p>{{ object.constructor }}</p>
+                    <hr>
+                    <p><strong>Kontaktperson:</strong></p>
+                    <p>{{ object.contact_person }}</p>
+                    <hr>
+                    <p><strong>Anteckningar:</strong></p>
+                    <p> {{ object.notes|linebreaks }}</p>
+                    <hr>
+                    <p><strong>Ritning:</strong></p>
+                    <p>{% if object.drawing %}<a class="card-link" target="_blank" href="{{ object.drawing.url }}">Öppna
+                            Ritning</a>{% else %}
+                        Ingen ritning tillgänglig {% endif %}</p>
+                        <a class="btn btn-info mt-3" href="{% url 'edit_object' object.id %}">Redigera Objekt</a>
+                        <a class="btn btn-secondary mt-3" href="{% url 'object' %}">Tillbaka</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

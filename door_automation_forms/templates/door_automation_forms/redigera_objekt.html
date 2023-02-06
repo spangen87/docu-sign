@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Nytt Objekt{% endblock %}
+{% block title %}Redigera Objekt{% endblock %}
 
 {% block content %}
 <div class="container h-100">
@@ -14,10 +14,11 @@
     </div>
     <div class="row">
         <div class="col-12 col-md-6 text-left mx-auto mb-5">
-            <form method="POST" id="new-object-form" action="{% url 'new_object' %}" class="form" enctype="multipart/form-data">
+            <form method="POST" id="edit-object-form" action="{% url 'edit_object' object.id %}" class="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button type="submit" class="btn btn-primary text-uppercase mb-5">Lägg till objekt</button>
+                <button type="submit" class="btn btn-info text-uppercase mb-5">Spara Ändringar</button>
+                <a class="btn btn-secondary mb-5 text-uppercase" href="{% url 'object_details' object.id %}">Avbryt</a>
             </form>
         </div>
     </div>
