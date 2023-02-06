@@ -52,3 +52,16 @@ def new_object(request):
     }
 
     return render(request, template, context)
+
+
+def object_details(request, object_id):
+    """
+    View details of a object
+    """
+    object = get_object_or_404(Object, pk=object_id)
+    context = {
+        'object': object,
+    }
+    template = 'door_automation_forms/objekt_detaljer.html'
+
+    return render(request, template, context)
