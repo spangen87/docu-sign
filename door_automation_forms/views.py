@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Object
-from .forms import ObjectForm
+from .forms import ObjectForm, ControlChartForm
 
 
 def forms(request):
@@ -16,7 +16,22 @@ def kontrollschema(request):
     """
     A view to return the kontrollschema form
     """
-    return render(request, 'door_automation_forms/kontrollschema.html')
+    if request.method == 'POST':
+        form = ControlChartForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Kontrollschema sparat!')
+            return redirect('object')
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = ControlChartForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'door_automation_forms/kontrollschema.html', context)
 
 
 def object(request):
