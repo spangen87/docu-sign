@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Object
+from .models import Object, ControlChart
 
 
 class ObjectAdmin(admin.ModelAdmin):
@@ -12,4 +12,16 @@ class ObjectAdmin(admin.ModelAdmin):
     ordering = ('name',)
 
 
+class ControlChartAdmin(admin.ModelAdmin):
+    list_display = (
+        'object',
+        'position_id',
+        'date',
+        'done_by',
+    )
+
+    ordering = ('date', 'object')
+
+
 admin.site.register(Object, ObjectAdmin)
+admin.site.register(ControlChart, ControlChartAdmin)
