@@ -34,8 +34,42 @@
                     <p><strong>Signatur:</strong></p>
                     <p><img src="{{ control_chart.signature|signature_base64 }}" alt="{{ control_chart }}"></p>
                     <hr>
-
-                
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 text-left mx-auto mb-5">
+            <div class="card mx-2 mb-5">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Egenskap</th>
+                                <th>Godkänd</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dörrkarm</td>
+                                <td>{% if control_chart.doorframe %}OK <i class="fa fa-circle text-success"></i>{% else %}Anm. <i class="fa fa-circle text-danger"></i>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Dörrblad</td>
+                                <td>{% if control_chart.door_leaves %}OK <i class="fa fa-circle text-success"></i>{% else %}Anm. <i class="fa fa-circle text-danger"></i>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Tröskel</td>
+                                <td>{% if control_chart.threshold %}OK <i class="fa fa-circle text-success"></i>{% else %}Anm. <i class="fa fa-circle text-danger"></i>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Gångjärn</td>
+                                <td>{% if control_chart.hinge %}OK <i class="fa fa-circle text-success"></i>{% else %}Anm. <i class="fa fa-circle text-danger"></i>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Låskista</td>
+                                <td>{% if control_chart.lock_chest %}OK <i class="fa fa-circle text-success"></i>{% else %}Anm. <i class="fa fa-circle text-danger"></i>{% endif %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
