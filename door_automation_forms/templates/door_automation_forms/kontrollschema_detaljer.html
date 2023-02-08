@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% load jsignature_filters %}
+
+{% block title %}Kontrollschema Detaljer{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-12 col-md-6 my-auto mx-auto text-center">
+            <h3 class="pt-5 mt-3">
+                Detaljer för: {{ control_chart.position_id }}
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 text-left mx-auto mb-5">
+            <div class="card mx-2 mb-5">
+                <div class="card-body">
+                    <p class="card-title"><strong>Objekt:</strong></p>
+                    <p class="card-text"> {{ control_chart.object }}</p>
+                    <p><strong>Dörrtyp:</strong></p>
+                    <p>{{ control_chart.door_type }}</p>
+                    <hr>
+                    <p><strong>Dörrposition/ID:</strong></p>
+                    <p>{{ control_chart.position_id }}</p>
+                    <hr>
+                    <p><strong>Utförd av:</strong></p>
+                    <p>{{ control_chart.done_by }}</p>
+                    <hr>
+                    <p><strong>Datum:</strong></p>
+                    <p> {{ control_chart.date }}</p>
+                    <hr>
+                    <p><strong>Signatur:</strong></p>
+                    <p><img src="{{ control_chart.signature|signature_base64 }}" alt="{{ control_chart }}"></p>
+                    <hr>
+
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

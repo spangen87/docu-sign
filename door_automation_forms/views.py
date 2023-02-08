@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Object
+from .models import Object, ControlChart
 from .forms import ObjectForm, ControlChartForm
 
 
@@ -12,7 +12,19 @@ def forms(request):
     return render(request, 'door_automation_forms/all_forms.html')
 
 
-def kontrollschema(request):
+def control_charts(request):
+    """
+    A view to render all control charts
+    """
+    control_charts = ControlChart.objects.all()
+    context = {
+        'control_charts': control_charts,
+    }
+
+    return render(request, 'door_automation_forms/kontrollscheman.html', context)
+
+
+def new_control_chart(request):
     """
     A view to return the kontrollschema form
     """
@@ -31,7 +43,20 @@ def kontrollschema(request):
         'form': form,
     }
 
-    return render(request, 'door_automation_forms/kontrollschema.html', context)
+    return render(request, 'door_automation_forms/nytt_kontrollschema.html', context)
+
+
+def control_chart_details(request, control_chart_id):
+    """
+    View to render details for a control chart
+    """
+    control_chart = get_object_or_404(ControlChart, pk=control_chart_id)
+    context = {
+        'control_chart': control_chart,
+    }
+    template = 'door_automation_forms/kontrollschema_detaljer.html'
+
+    return render(request, template, context)
 
 
 def object(request):
