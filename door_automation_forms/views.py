@@ -59,6 +59,31 @@ def control_chart_details(request, control_chart_id):
     return render(request, template, context)
 
 
+def edit_control_chart(request, control_chart_id):
+    """
+    Edit a existing control chart
+    """
+    control_chart = get_object_or_404(ControlChart, pk=control_chart_id)
+    if request.method == 'POST':
+        form = ControlChartForm(
+            request.POST, request.FILES, instance=control_chart)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Uppdateringar sparade!')
+            return redirect('control_charts')
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = ControlChartForm(instance=control_chart)
+    template = 'door_automation_forms/redigera_kontrollschema.html'
+    context = {
+        'form': form,
+        'control_chart': control_chart,
+    }
+
+    return render(request, template, context)
+
+
 def object(request):
     """
     A view to return the objects

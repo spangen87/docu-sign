@@ -2,24 +2,25 @@
 {% load static %}
 {% load jsignature_filters %}
 
-{% block title %}Nytt Kontrollschema{% endblock %}
+{% block title %}Redigera Kontrollschema{% endblock %}
 
 {% block content %}
 <div class="container h-100">
     <div class="row h-100">
         <div class="col-12 col-md-6 my-auto mx-auto text-center">
             <h3 class="py-5 mt-2">
-                Nytt Kontrollschema
+                Redigera Kontrollschema
             </h3>
         </div>
     </div>
     <div class="row">
         <div class="col-12 col-md-6 text-left mx-auto mb-5">
             {{ form.media }}
-            <form method="POST" id="new-object-form" action="{% url 'new_control_chart' %}" class="form" enctype="multipart/form-data">
+            <form method="POST" id="new-object-form" action="{% url 'edit_control_chart' control_chart.id %}" class="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <button type="submit" class="btn btn-primary text-uppercase mb-5">Spara Kontrollschema</button>
+                <a class="btn btn-secondary mb-5 text-uppercase" href="{% url 'control_chart_details' control_chart.id %}">Avbryt</a>
             </form>
         </div>
     </div>
