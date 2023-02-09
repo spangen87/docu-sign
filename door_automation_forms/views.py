@@ -33,7 +33,7 @@ def new_control_chart(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Kontrollschema sparat!')
-            return redirect('object')
+            return redirect('control_charts')
         else:
             messages.error(request, form.errors)
     else:
