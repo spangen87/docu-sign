@@ -34,6 +34,8 @@
                     <p><strong>Signatur:</strong></p>
                     <p><img src="{{ control_chart.signature|signature_base64 }}" alt="{{ control_chart }}"></p>
                     <hr>
+                    <p><strong>Anmärkningar:</strong></p>
+                    <p> {{ control_chart.notes|linebreaks }}</p>
                 </div>
             </div>
         </div>
@@ -50,23 +52,157 @@
                         <tbody>
                             <tr>
                                 <td>Dörrkarm</td>
-                                <td>{% if control_chart.doorframe %}OK <i class="fa fa-circle text-success"></i>{% else %}Anm. <i class="fa fa-circle text-danger"></i>{% endif %}</td>
+                                <td>{% if control_chart.doorframe == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.doorframe == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Dörrblad</td>
-                                <td>{% if control_chart.door_leaves %}OK <i class="fa fa-circle text-success"></i>{% else %}Anm. <i class="fa fa-circle text-danger"></i>{% endif %}</td>
+                                <td>{% if control_chart.door_leaves == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.door_leaves == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Tröskel</td>
-                                <td>{% if control_chart.threshold %}OK <i class="fa fa-circle text-success"></i>{% else %}Anm. <i class="fa fa-circle text-danger"></i>{% endif %}</td>
+                                <td>{% if control_chart.threshold == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.threshold == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Gångjärn</td>
-                                <td>{% if control_chart.hinge %}OK <i class="fa fa-circle text-success"></i>{% else %}Anm. <i class="fa fa-circle text-danger"></i>{% endif %}</td>
+                                <td>{% if control_chart.hinge == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.hinge == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Låskista</td>
-                                <td>{% if control_chart.lock_chest %}OK <i class="fa fa-circle text-success"></i>{% else %}Anm. <i class="fa fa-circle text-danger"></i>{% endif %}</td>
+                                <td>{% if control_chart.lock_chest == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.lock_chest == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Slutbleck</td>
+                                <td>{% if control_chart.end_plate == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.end_plate == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Kantregel</td>
+                                <td>{% if control_chart.edge_rule == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.edge_rule == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Dörrkoordinator</td>
+                                <td>{% if control_chart.door_coordinator == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.door_cordinator == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Låskista</td>
+                                <td>{% if control_chart.lock_chest == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.lock_chest == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Dörrmiljö rengjord</td>
+                                <td>{% if control_chart.door_environment_clean == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.door_environment_clean == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Öppnare riktigt fäst till vägg/parti</td>
+                                <td>{% if control_chart.opener_attached_to_the_wall == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.opener_attached_to_the_wall == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Armsystem riktigt fäst till öppnare/dörr</td>
+                                <td>{% if control_chart.arm_system_attached == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.arm_system_attached == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Armsystem riktigt justerat</td>
+                                <td>{% if control_chart.arm_system_adjusted == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.arm_system_adjusted == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Stängningshastighet riktigt justerat 1-flyg</td>
+                                <td>{% if control_chart.cloosing_speed_adjusted1 == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.cloosing_speed_adjusted1 == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Stängningshastighet riktigt justerat 2-flyg</td>
+                                <td>{% if control_chart.closing_speed_adjusted2 == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.closing_speed_adjusted2 == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Öppningshastighet riktigt justerat 1-flyg</td>
+                                <td>{% if control_chart.opening_speed_adjusted1 == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.opening_speed_adjusted1 == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Öppningshastighet riktigt justerat 2-flyg</td>
+                                <td>{% if control_chart.opening_speed_adjusted2 == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.opening_speed_adjusted2 == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Öppningskoordinering riktigt inställt 2-flyg</td>
+                                <td>{% if control_chart.opening_coordination == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.opening_coordination == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Säkerhetssensor, justerad och testad</td>
+                                <td>{% if control_chart.safety_sensor_tested == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.safety_sensor_tested == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Impulsgivare (radar) riktigt monterat och justerat</td>
+                                <td>{% if control_chart.impulse_sensor_adjusted == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.impulse_sensor_adjusted == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Styrsignaler från passersystem testat</td>
+                                <td>{% if control_chart.control_signals_tested == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.control_signals_tested == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td>Styrsignaler från brandlarm testat</td>
+                                <td>{% if control_chart.fire_signals_tested == 'OK' %}OK <i class="fa fa-circle text-success"></i>
+                                    {% elif control_chart.fire_signals_tested == 'ANM' %}Anm. <i class="fa fa-circle text-danger"></i>
+                                    {% else %}N/A{% endif %}
+                                </td>                            
                             </tr>
                         </tbody>
                     </table>
