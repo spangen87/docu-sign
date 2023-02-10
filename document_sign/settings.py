@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'jsignature',
+    'django_wkhtmltopdf',
 ]
 
 MIDDLEWARE = [
