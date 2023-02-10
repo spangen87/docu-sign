@@ -3,8 +3,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Object, ControlChart
 from .forms import ObjectForm, ControlChartForm
-from django.http import FileResponse
-from wkhtmltopdf.views import PDFTemplateView
+from django.http import FileResponse, HttpResponse
+from django.template.loader import get_template, render_to_string
+from weasyprint import HTML
+import tempfile
 
 
 def forms(request):
@@ -158,10 +160,26 @@ def edit_object(request, object_id):
     return render(request, template, context)
 
 
-class PDFView(PDFTemplateView):
-    template_name = "door_automation_forms/print.html"
-    
-    def get(self, request, *args, **kwargs):
-        response = super().get(request, *args, **kwargs)
-        response['Content-Disposition'] = 'attachment; filename="hello.pdf"'
-        return response
+def generate_pdf(request, control_chart_id):
+
+    control_chart = get_object_or_404(ControlChart, pk=control_chart_id)
+
+    # Return the PDF file as a response
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=kontrollschema.pdf'
+    response['Content-Transfer-Encoding'] = 'binary'
+
+    # Render the HTML template to a string
+    html_string = render_to_string('door_automation_forms/print.html', {'control_chart': control_chart})
+
+    # Generate the PDF file
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=True) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    return response

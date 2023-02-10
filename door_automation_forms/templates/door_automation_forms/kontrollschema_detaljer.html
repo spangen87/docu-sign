@@ -15,7 +15,7 @@
         <div class="col-12 text-center mb-2">
             <a class="btn btn-info mt-3" href="{% url 'edit_control_chart' control_chart.id %}">Redigera Kontrollschema</a>
             <a class="btn btn-secondary mt-3" href="{% url 'control_charts' %}">Tillbaka</a>
-            <a class="btn btn-secondary mt-3" href="{% url 'hello_pdf' %}">Skapa PDF</a>
+            <a class="btn btn-secondary mt-3" href="{% url 'generate_pdf' control_chart.id %}">Skapa PDF</a>
         </div>
     </div>
     <div class="row">
