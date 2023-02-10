@@ -15,4 +15,4 @@ vscode:
     - ms-toolsai.jupyter-keymap
     - ms-toolsai.jupyter-renderers
 services:
-    - wkhtmltopdf
+  - wkhtmltopdf

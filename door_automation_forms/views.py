@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Object, ControlChart
 from .forms import ObjectForm, ControlChartForm
+from django.http import FileResponse
+from wkhtmltopdf.views import PDFTemplateView
 
 
 def forms(request):
@@ -154,3 +156,12 @@ def edit_object(request, object_id):
     }
 
     return render(request, template, context)
+
+
+class PDFView(PDFTemplateView):
+    template_name = "door_automation_forms/print.html"
+    
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        response['Content-Disposition'] = 'attachment; filename="hello.pdf"'
+        return response
