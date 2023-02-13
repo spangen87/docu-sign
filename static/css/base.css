@@ -1,3 +1,9 @@
 .footer {
     background-color: lightgray;
 }
+
+.btn-info {
+    color: #fff;
+    background-color: #00AEEF;
+    border-color: #00AEEF;
+}
