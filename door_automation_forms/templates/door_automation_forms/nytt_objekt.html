@@ -7,7 +7,7 @@
 <div class="container h-100">
     <div class="row h-100">
         <div class="col-12 col-md-6 my-auto mx-auto text-center">
-            <h3 class="py-5 mt-2">
+            <h3 class="pt-5 mt-3">
                 Nytt Objekt
             </h3>
         </div>
@@ -17,7 +17,8 @@
             <form method="POST" id="new-object-form" action="{% url 'new_object' %}" class="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button type="submit" class="btn btn-primary text-uppercase mb-5">Lägg till objekt</button>
+                <button type="submit" class="btn btn-info text-uppercase mb-5 mr-2">Spara</button>
+                <a href="{% url 'forms' %}" class="btn btn-secondary text-uppercase mb-5">Avbryt</a>
             </form>
         </div>
     </div>
