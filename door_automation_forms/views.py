@@ -5,6 +5,7 @@ from .models import Object, ControlChart
 from .forms import ObjectForm, ControlChartForm
 from django.http import FileResponse, HttpResponse
 from django.template.loader import get_template, render_to_string
+from django.db.models import Q
 from weasyprint import HTML
 import tempfile
 
@@ -21,8 +22,20 @@ def control_charts(request):
     A view to render all control charts
     """
     control_charts = ControlChart.objects.all()
+    query = None
+
+    if request.GET:
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, "Ingen sökterm angiven!")
+
+            queries = Q(object__name__icontains=query) | Q(position_id__icontains=query)
+            control_charts = control_charts.filter(queries)
+
     context = {
         'control_charts': control_charts,
+        'search_term': query,
     }
 
     return render(request, 'door_automation_forms/kontrollscheman.html', context)
