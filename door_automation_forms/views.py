@@ -23,22 +23,44 @@ def control_charts(request):
     """
     control_charts = ControlChart.objects.all()
     query = None
+    sort = None
+    direction = None
 
     if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'obejct':
+                sortkey = 'lower_object'
+                control_charts = control_charts.annotate(lower_object=Lower('object'))
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            control_charts = control_charts.order_by(sortkey)
+
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
                 messages.error(request, "Ingen sökterm angiven!")
 
-            queries = Q(object__name__icontains=query) | Q(position_id__icontains=query)
+            queries = Q(
+                object__name__icontains=query) | Q(
+                    position_id__icontains=query)
             control_charts = control_charts.filter(queries)
+
+    template = 'door_automation_forms/kontrollscheman.html'
+
+    current_sorting = f'{sort}_{direction}'
 
     context = {
         'control_charts': control_charts,
         'search_term': query,
+        'current_sorting': current_sorting,
     }
 
-    return render(request, 'door_automation_forms/kontrollscheman.html', context)
+    return render(request, template, context)
 
 
 def new_control_chart(request):
