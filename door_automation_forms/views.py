@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Object, ControlChart
-from .forms import ObjectForm, ControlChartForm
+from .models import Object, ControlChart, RiskAnalysis
+from .forms import ObjectForm, ControlChartForm, RiskAnalysisForm
 from django.http import FileResponse, HttpResponse
 from django.template.loader import get_template, render_to_string
 from django.db.models import Q
@@ -218,3 +218,27 @@ def generate_pdf(request, control_chart_id):
         response.write(output.read())
 
     return response
+
+
+def new_risk_analysis(request):
+    """
+    A view to return the riskanalys form
+    """
+    if request.method == 'POST':
+        form = RiskAnalysisForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Riskanalys sparad!')
+            return redirect('all_forms')
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = RiskAnalysisForm()
+
+    context = {
+        'form': form,
+    }
+
+    template = 'door_automation_forms/ny_riskanalys.html'
+
+    return render(request, template, context)

@@ -11,5 +11,6 @@ urlpatterns = [
     path('nytt_objekt/', views.new_object, name='new_object'),
     path('objekt_detaljer/<int:object_id>', views.object_details, name='object_details'),
     path('redigera_objekt/<int:object_id>', views.edit_object, name='edit_object'),
+    path('ny_riskanalys/', views.new_risk_analysis, name='new_risk_analysis'),
     path('generate_pdf/<int:control_chart_id>', views.generate_pdf, name='generate_pdf'),
 ]

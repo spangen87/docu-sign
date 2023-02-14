@@ -88,3 +88,52 @@ class ControlChart(models.Model):
 
     def __str__(self):
         return self.position_id
+
+
+class Choice(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
+class RiskAnalysis(models.Model):
+    """
+    Model for handling risk analyser
+    """
+    class Meta:
+        verbose_name = 'Risk analys'
+        verbose_name_plural = 'Risk analyser'
+
+    SAFETY_CHOICES = [
+        ('protective_covers', 'Skyddskåpor eller dylikt'),
+        ('barriers', 'Barriärer'),
+        ('obstacles', 'Hinder'),
+        ('safety_sensors', 'Säkerhetssensorer'),
+        ('low_energy_level', 'Low Energy-nivå'),
+    ]
+
+    RISK = [
+        ('LOW', 'Låg risk'),
+        ('HIGH', 'Hög risk'),
+    ]
+
+    door_id = models.CharField(max_length=14, verbose_name='Dörr-ID/platsbeskrivning')
+    risk = models.CharField(max_length=4, choices=RISK, verbose_name='Risknivå')
+    automatic_model = models.CharField(max_length=54, verbose_name='Automatisk modell')
+    A = models.ManyToManyField(Choice, related_name='a_choices')
+    B = models.ManyToManyField(Choice, related_name='b_choices')
+    C = models.ManyToManyField(Choice, related_name='c_choices')
+    D = models.ManyToManyField(Choice, related_name='d_choices')
+    E = models.ManyToManyField(Choice, related_name='e_choices')
+
+    notes = models.TextField(max_length=1000, verbose_name='Anmärkningar', help_text='Ange anmärkningar. Börja med bokstaven följt av notering. Ny anmärkning på ny rad.')
+
+    date = models.DateField()
+    supplier = models.CharField(max_length=54, verbose_name='Leverantör')
+    object = models.ForeignKey('Object', on_delete=models.CASCADE)
+    done_by = models.CharField(max_length=54, verbose_name='Utfört av')
+    signature = JSignatureField()
+
+    def __str__(self):
+        return self.door_id
