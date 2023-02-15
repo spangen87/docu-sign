@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ChoiceField, MultipleChoiceField
-from .models import Object, ControlChart, RiskAnalysis, Choice
+from .models import Object, ControlChart, RiskAnalysis
 
 
 class ObjectForm(forms.ModelForm):
@@ -18,6 +18,8 @@ class ObjectForm(forms.ModelForm):
 
 
 class ControlChartForm(forms.ModelForm):
+
+    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
     class Meta:
         model = ControlChart
@@ -37,11 +39,37 @@ class RiskAnalysisForm(forms.ModelForm):
         ('low_energy_level', 'Low Energy-nivå'),
     ]
 
-    A = forms.MultipleChoiceField(choices=SAFETY_CHOICES, widget=forms.CheckboxSelectMultiple, required=False)
-    B = forms.MultipleChoiceField(choices=SAFETY_CHOICES, widget=forms.CheckboxSelectMultiple, required=False)
-    C = forms.MultipleChoiceField(choices=SAFETY_CHOICES, widget=forms.CheckboxSelectMultiple, required=False)
-    D = forms.MultipleChoiceField(choices=SAFETY_CHOICES, widget=forms.CheckboxSelectMultiple, required=False)
-    E = forms.MultipleChoiceField(choices=SAFETY_CHOICES, widget=forms.CheckboxSelectMultiple, required=False)
+    A = forms.MultipleChoiceField(
+        choices=SAFETY_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label="A. Klämrisk*",
+        help_text="""*Område A och B ska skyddas med säkerhetssensorer. Övriga
+        punkter säkras speciellt vid behov/säkerhetsrisk""")
+    B = forms.MultipleChoiceField(
+        choices=SAFETY_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label="B. Klämrisk*",
+        help_text="""*Område A och B ska skyddas med säkerhetssensorer. Övriga
+        punkter säkras speciellt vid behov/säkerhetsrisk""")
+    C = forms.MultipleChoiceField(
+        choices=SAFETY_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label="C. Klämrisk")
+    D = forms.MultipleChoiceField(
+        choices=SAFETY_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label="D. Klämrisk")
+    E = forms.MultipleChoiceField(
+        choices=SAFETY_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label="E. Klämrisk")
+
+    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
     class Meta:
         model = RiskAnalysis

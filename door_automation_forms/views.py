@@ -227,9 +227,10 @@ def new_risk_analysis(request):
     if request.method == 'POST':
         form = RiskAnalysisForm(request.POST)
         if form.is_valid():
+            # Save the form
             form.save()
             messages.success(request, 'Riskanalys sparad!')
-            return redirect('all_forms')
+            return redirect('risk_analysis')
         else:
             messages.error(request, form.errors)
     else:
@@ -240,5 +241,64 @@ def new_risk_analysis(request):
     }
 
     template = 'door_automation_forms/ny_riskanalys.html'
+
+    return render(request, template, context)
+
+
+def risk_analysis(request):
+    """
+    A view to render all control charts
+    """
+    analysis = RiskAnalysis.objects.all()
+    query = None
+    sort = None
+    direction = None
+
+    if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'object':
+                sortkey = 'lower_object'
+                control_charts = control_charts.annotate(lower_object=Lower('object'))
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            analysis = analysis.order_by(sortkey)
+
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, "Ingen sökterm angiven!")
+
+            queries = Q(
+                object__name__icontains=query) | Q(
+                    door_id__icontains=query)
+            analysis = analysis.filter(queries)
+
+    template = 'door_automation_forms/riskanalyser.html'
+
+    current_sorting = f'{sort}_{direction}'
+
+    context = {
+        'analysis': analysis,
+        'search_term': query,
+        'current_sorting': current_sorting,
+    }
+
+    return render(request, template, context)
+
+
+def risk_analysis_details(request, risk_analysis_id):
+    """
+    View details of a object
+    """
+    risk_analysis = get_object_or_404(RiskAnalysis, pk=risk_analysis_id)
+    context = {
+        'risk_analysis': risk_analysis,
+    }
+    template = 'door_automation_forms/riskanalys_detaljer.html'
 
     return render(request, template, context)

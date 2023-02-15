@@ -14,6 +14,9 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-12 col-md-6 mb-2 text-center">
+            <img class="mx-auto" src="{{ MEDIA_URL }}automatik_risk.png" alt="Automatik skiss">
+        </div>
         <div class="col-12 col-md-6 text-left mx-auto mb-5">
             {{ form.media }}
             <form method="POST" id="new-object-form" action="{% url 'new_risk_analysis' %}" class="form" enctype="multipart/form-data">

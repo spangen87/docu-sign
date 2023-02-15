@@ -54,7 +54,7 @@ class ControlChart(models.Model):
 
     object = models.ForeignKey('Object', on_delete=models.CASCADE)
     door_type = models.CharField(max_length=6, choices=DOOR_TYPE_CHOICES, verbose_name='Dörrtyp')
-    position_id = models.CharField(max_length=14, verbose_name='Dörrposition/ID')
+    position_id = models.ForeignKey('RiskAnalysis', on_delete=models.CASCADE, verbose_name='Dörr ID')
     done_by = models.CharField(max_length=54, verbose_name='Utfört av')
     date = models.DateField()
 
@@ -90,13 +90,6 @@ class ControlChart(models.Model):
         return self.position_id
 
 
-class Choice(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
 class RiskAnalysis(models.Model):
     """
     Model for handling risk analyser
@@ -118,20 +111,23 @@ class RiskAnalysis(models.Model):
         ('HIGH', 'Hög risk'),
     ]
 
+    object = models.ForeignKey('Object', on_delete=models.CASCADE)
     door_id = models.CharField(max_length=14, verbose_name='Dörr-ID/platsbeskrivning')
-    risk = models.CharField(max_length=4, choices=RISK, verbose_name='Risknivå')
+    risk = models.CharField(max_length=4, choices=RISK, verbose_name='Risknivå', help_text="""Hög risk* Om användarna till stor del är äldre,
+        funktionshindrade personer eller barn kan all kontakt mellan dörrbladen/dörrkonstruktionen och användaren betraktas som riskfylld.
+        Gäller alla automatiska dörrar som inte uppfyller Low Energy-nivån (begränsningar i hastighet, vikt och massa i rörelse).
+        Låg risk** Om användargruppen inte passar in i beskrivningen ovan och dörrautomatiken Low Energy används.""")
     automatic_model = models.CharField(max_length=54, verbose_name='Automatisk modell')
-    A = models.ManyToManyField(Choice, related_name='a_choices')
-    B = models.ManyToManyField(Choice, related_name='b_choices')
-    C = models.ManyToManyField(Choice, related_name='c_choices')
-    D = models.ManyToManyField(Choice, related_name='d_choices')
-    E = models.ManyToManyField(Choice, related_name='e_choices')
+    A = models.CharField(max_length=50, choices=SAFETY_CHOICES, blank=True, null=True, verbose_name='A. Klämrisk*')
+    B = models.CharField(max_length=50, choices=SAFETY_CHOICES, blank=True, null=True, verbose_name='B. Klämrisk*')
+    C = models.CharField(max_length=50, choices=SAFETY_CHOICES, blank=True, null=True, verbose_name='C. Klämrisk')
+    D = models.CharField(max_length=50, choices=SAFETY_CHOICES, blank=True, null=True, verbose_name='D. Klämrisk')
+    E = models.CharField(max_length=50, choices=SAFETY_CHOICES, blank=True, null=True, verbose_name='E. Klämrisk')
 
     notes = models.TextField(max_length=1000, verbose_name='Anmärkningar', help_text='Ange anmärkningar. Börja med bokstaven följt av notering. Ny anmärkning på ny rad.')
 
     date = models.DateField()
     supplier = models.CharField(max_length=54, verbose_name='Leverantör')
-    object = models.ForeignKey('Object', on_delete=models.CASCADE)
     done_by = models.CharField(max_length=54, verbose_name='Utfört av')
     signature = JSignatureField()
 

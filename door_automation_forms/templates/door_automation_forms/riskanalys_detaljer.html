@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% load jsignature_filters %}
+
+
+{% block title %}Riskanalys Detaljer{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-12 col-md-6 my-auto mx-auto text-center">
+            <h3 class="pt-5 mt-3">
+                Riskanalys för: {{ risk_analysis.door_id }}
+            </h3>
+        </div>
+        <div class="col-12 text-center mb-2">
+            <a class="btn btn-info mt-3" href="#">Redigera Riskanalys</a>
+            <a class="btn btn-secondary mt-3" href="{% url 'risk_analysis' %}">Tillbaka</a>
+            <a class="btn btn-secondary mt-3" href="#">Skapa PDF</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 text-left mx-auto mb-5">
+            <div class="card mx-2 mb-5">
+                <div class="card-body">
+                    <p class="card-title"><strong>Objekt:</strong></p>
+                    <p class="card-text"> {{ risk_analysis.object }}</p>
+                    <p><strong>Dörr ID:</strong></p>
+                    <p>{{ risk_analysis.door_id }}</p>
+                    <hr>
+                    <p><strong>Risk:</strong></p>
+                    <p>{{ risk_analysis.get_risk_display }}</p>
+                    <hr>
+                    <p><strong>Modell:</strong></p>
+                    <p>{{ risk_analysis.automatic_model }}</p>
+                    <hr>
+                    <p><strong>Datum:</strong></p>
+                    <p> {{ risk_analysis.date }}</p>
+                    <hr>
+                    <p><strong>Signatur:</strong></p>
+                    <p><img src="{{ risk_analysis.signature|signature_base64 }}" alt="{{ risk_analysis }}"></p>
+                    <hr>
+                    <p><strong>Anmärkningar:</strong></p>
+                    <p> {{ risk_analysis.notes|linebreaks }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 text-left mx-auto mb-5">
+            <div class="card mx-2 mb-5">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Säkerhetsåtgärder</th>
+                                <th>A.</th>
+                                <th>B.</th>
+                                <th>C.</th>
+                                <th>D.</th>
+                                <th>E.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Skyddskåpor eller dylikt</td>
+                                <td>{% if 2 in risk_analysis.A.id %}X{% else %}-{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Barriärer</td>
+                                <td>{% if 2 in risk_analysis.A.id %}X{% else %}-{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Hinder</td>
+                                <td>{% if 3 in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Säkerhetssensorer</td>
+                                <td>{% if 4 in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Low Energy-nivå</td>
+                                <td>{% if 5 in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Riskanalyser{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-12 col-md-6 my-auto mx-auto text-center">
+            <h3 class="py-3 mt-5">
+                Riskanalyser
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 text-center mx-auto mb-5">
+            <a class="btn btn-lg btn-block btn-secondary" href="{% url 'new_risk_analysis' %}">Ny Riskanalys</a>
+            <div class="table-responsive mb-5">
+                <form method="GET" action="#" class="form mt-2 mt-md-2">
+                    <input class="form-control mr-sm-2" type="text" name="q" placeholder="Objekt eller Position/ID" aria-label="Sök">
+                    <button class="btn btn-outline-secondary my-2 btn-inline" type="submit">Sök</button>
+                </form>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col"><a href="{% url 'control_charts' %}?sort=object&direction=asc">Objekt</a></th>
+                            <th scope="col"><a href="{% url 'control_charts' %}?sort=position_id&direction=asc">Position/ID</a></th>
+                            <th scope="col"><a href="{% url 'control_charts' %}?sort=date&direction=desc">Datum</a></th>
+                            <th scope="col">Se Hela</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for analys in analysis %}
+                        <tr>
+                            <td>{{ analys.object }}</td>
+                            <td>{{ analys.door_id }}</td>
+                            <td>{{ analys.date }}</td>
+                            <td><a class="btn btn-info btn-sm mb-1 mt-1" href="{% url 'risk_analysis_details' analys.id %}">Läs
+                                Mer</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 mb-5">
+                <a href="{% url 'forms' %}" class="btn btn-info text-uppercase">Tillbaka till menyn</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
