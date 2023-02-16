@@ -54,7 +54,7 @@ class ControlChart(models.Model):
 
     object = models.ForeignKey('Object', on_delete=models.CASCADE)
     door_type = models.CharField(max_length=6, choices=DOOR_TYPE_CHOICES, verbose_name='Dörrtyp')
-    position_id = models.ForeignKey('RiskAnalysis', on_delete=models.CASCADE, verbose_name='Dörr ID')
+    position_id = models.ForeignKey('RiskAnalysis', on_delete=models.CASCADE, verbose_name='Dörr ID', related_name='doors')
     done_by = models.CharField(max_length=54, verbose_name='Utfört av')
     date = models.DateField()
 
@@ -87,7 +87,7 @@ class ControlChart(models.Model):
     signature = JSignatureField()
 
     def __str__(self):
-        return self.position_id
+        return self.position_id.door_id
 
 
 class RiskAnalysis(models.Model):
