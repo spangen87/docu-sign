@@ -25,6 +25,11 @@ class ControlChartForm(forms.ModelForm):
         model = ControlChart
         fields = '__all__'
 
+    # def __init__(self, *args, **kwargs):
+    #     super(ControlChartForm, self).__init__(*args, **kwargs)
+    #     if self.instance.object:
+    #         self.fields['position_id'].queryset = RiskAnalysis.objects.filter(object__exact=self.instance.object)
+
 
 class RiskAnalysisForm(forms.ModelForm):
     """

@@ -35,33 +35,100 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-12 text-left mx-auto">
-                <div class="col-12 col-md-6 my-auto mx-auto text-center mb-4">
-                    <h2 class="mb-3">
-                        Riskanalys för dörr: {{ risk_analysis.door_id }}
-                    </h2>
-                    <hr>
-                </div>
-                <div class="mx-2 mb-5">
-                    <div class="">
-                        <span><strong>Objekt:</strong></span>
-                        <span> {{ risk_analysis.object }}</span>
-                        <span><strong>Automatik:</strong></span>
-                        <span> {{ risk_analysis.automatic_model }}</span>
-                        <span><strong>Dörrposition/ID:</strong></span>
-                        <span> {{ risk_analysis.door_id }}</span>
-                        <span><strong>Datum:</strong></span>
-                        <span> {{ risk_analysis.date }}</span>
-                        <hr>
-                        <span><strong>Anmärkningar:</strong></span>
-                        <p> {{ risk_analysis.notes|linebreaks }}</p>
-                    </div>
-                </div>
+            <div class="col-12 my-auto mx-auto text-center mb-4">
+                <h2 class="mb-3">
+                    Riskanalys för dörr: {{ risk_analysis.door_id }}
+                </h2>
+                <hr>
             </div>
         </div>
         <div class="row">
-            
+            <div class="col-6 mb-2">
+                <p><strong>Objekt:</strong> {{ risk_analysis.object }}</p>
+                <p><strong>Dörrposition/ID:</strong> {{ risk_analysis.door_id }}</p>
+                <p><strong>Automatik:</strong> {{ risk_analysis.automatic_model }}</p>
+                <hr>  
+            </div>
+            <div class="col-6 mb-2">
+                <p><strong>Risk:</strong> {{ risk_analysis.get_risk_display }}</p>
+                <p><strong>Datum:</strong> {{ risk_analysis.date }}</p>
+                <p><strong>Leverantör:</strong> {{ risk_analysis.supplier }}</p>
+                <hr>         
+            </div>
 
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <h5>Anmärkningar:</h5>
+                <p> {{ risk_analysis.notes|linebreaks }}</p>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 mb-2">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Säkerhetsåtgärder</th>
+                                    <th>A.</th>
+                                    <th>B.</th>
+                                    <th>C.</th>
+                                    <th>D.</th>
+                                    <th>E.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Skyddskåpor eller dylikt</td>
+                                    <td>{% if 'protective_covers' in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'protective_covers' in risk_analysis.B %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'protective_covers' in risk_analysis.C %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'protective_covers' in risk_analysis.D %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'protective_covers' in risk_analysis.E %}X{% else %}-{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>Barriärer</td>
+                                    <td>{% if 'barriers' in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'barriers' in risk_analysis.B %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'barriers' in risk_analysis.C %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'barriers' in risk_analysis.D %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'barriers' in risk_analysis.E %}X{% else %}-{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>Hinder</td>
+                                    <td>{% if 'obstacles' in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'obstacles' in risk_analysis.B %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'obstacles' in risk_analysis.C %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'obstacles' in risk_analysis.D %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'obstacles' in risk_analysis.E %}X{% else %}-{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>Säkerhetssensorer</td>
+                                    <td>{% if 'safety_sensors' in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'safety_sensors' in risk_analysis.B %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'safety_sensors' in risk_analysis.C %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'safety_sensors' in risk_analysis.D %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'safety_sensors' in risk_analysis.E %}X{% else %}-{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>Low Energy-nivå</td>
+                                    <td>{% if 'low_energy_level' in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'low_energy_level' in risk_analysis.B %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'low_energy_level' in risk_analysis.C %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'low_energy_level' in risk_analysis.D %}X{% else %}-{% endif %}</td>
+                                    <td>{% if 'low_energy_level' in risk_analysis.E %}X{% else %}-{% endif %}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <img src="{{MEDIA_URL}}automatik_risk.png" alt="automatik risk">
+            </div>
         </div>
         <div class="row">
             <div class="col-12 mt-2 pt-2">

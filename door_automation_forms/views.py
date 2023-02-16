@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from .models import Object, ControlChart, RiskAnalysis
 from .forms import ObjectForm, ControlChartForm, RiskAnalysisForm
 from django.http import FileResponse, HttpResponse
@@ -340,10 +341,10 @@ def risk_analysis_pdf(request, risk_analysis_id):
     response['Content-Transfer-Encoding'] = 'binary'
 
     # Render the HTML template to a string
-    html_string = render_to_string('door_automation_forms/print_risk_analysis.html', {'risk_analysis': risk_analysis})
+    html_string = render_to_string('door_automation_forms/print_risk_analysis.html', {'risk_analysis': risk_analysis, 'MEDIA_URL': settings.MEDIA_URL,})
 
     # Generate the PDF file
-    html = HTML(string=html_string)
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
     result = html.write_pdf()
 
     with tempfile.NamedTemporaryFile(delete=True) as output:
