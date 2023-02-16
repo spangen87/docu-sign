@@ -6,6 +6,7 @@ from .forms import ObjectForm, ControlChartForm, RiskAnalysisForm
 from django.http import FileResponse, HttpResponse
 from django.template.loader import get_template, render_to_string
 from django.db.models import Q
+from django.db.models.functions import Lower
 from weasyprint import HTML
 import tempfile
 
@@ -30,7 +31,7 @@ def control_charts(request):
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
             sort = sortkey
-            if sortkey == 'obejct':
+            if sortkey == 'object':
                 sortkey = 'lower_object'
                 control_charts = control_charts.annotate(lower_object=Lower('object'))
 
@@ -247,7 +248,7 @@ def new_risk_analysis(request):
 
 def risk_analysis(request):
     """
-    A view to render all control charts
+    A view to render all risk analysis
     """
     analysis = RiskAnalysis.objects.all()
     query = None
@@ -260,7 +261,7 @@ def risk_analysis(request):
             sort = sortkey
             if sortkey == 'object':
                 sortkey = 'lower_object'
-                control_charts = control_charts.annotate(lower_object=Lower('object'))
+                analysis = analysis.annotate(lower_object=Lower('object'))
 
             if 'direction' in request.GET:
                 direction = request.GET['direction']
