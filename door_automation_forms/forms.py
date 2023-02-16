@@ -30,14 +30,13 @@ class RiskAnalysisForm(forms.ModelForm):
     """
     Form for handling risk analyser
     """
-
-    SAFETY_CHOICES = [
+    SAFETY_CHOICES = (
         ('protective_covers', 'Skyddskåpor eller dylikt'),
         ('barriers', 'Barriärer'),
         ('obstacles', 'Hinder'),
         ('safety_sensors', 'Säkerhetssensorer'),
         ('low_energy_level', 'Low Energy-nivå'),
-    ]
+    )
 
     A = forms.MultipleChoiceField(
         choices=SAFETY_CHOICES,

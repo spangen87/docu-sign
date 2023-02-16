@@ -62,23 +62,43 @@
                         <tbody>
                             <tr>
                                 <td>Skyddskåpor eller dylikt</td>
-                                <td>{% if 2 in risk_analysis.A.id %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'protective_covers' in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'protective_covers' in risk_analysis.B %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'protective_covers' in risk_analysis.C %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'protective_covers' in risk_analysis.D %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'protective_covers' in risk_analysis.E %}X{% else %}-{% endif %}</td>
                             </tr>
                             <tr>
                                 <td>Barriärer</td>
-                                <td>{% if 2 in risk_analysis.A.id %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'barriers' in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'barriers' in risk_analysis.B %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'barriers' in risk_analysis.C %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'barriers' in risk_analysis.D %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'barriers' in risk_analysis.E %}X{% else %}-{% endif %}</td>
                             </tr>
                             <tr>
                                 <td>Hinder</td>
-                                <td>{% if 3 in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'obstacles' in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'obstacles' in risk_analysis.B %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'obstacles' in risk_analysis.C %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'obstacles' in risk_analysis.D %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'obstacles' in risk_analysis.E %}X{% else %}-{% endif %}</td>
                             </tr>
                             <tr>
                                 <td>Säkerhetssensorer</td>
-                                <td>{% if 4 in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'safety_sensors' in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'safety_sensors' in risk_analysis.B %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'safety_sensors' in risk_analysis.C %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'safety_sensors' in risk_analysis.D %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'safety_sensors' in risk_analysis.E %}X{% else %}-{% endif %}</td>
                             </tr>
                             <tr>
                                 <td>Low Energy-nivå</td>
-                                <td>{% if 5 in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'low_energy_level' in risk_analysis.A %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'low_energy_level' in risk_analysis.B %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'low_energy_level' in risk_analysis.C %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'low_energy_level' in risk_analysis.D %}X{% else %}-{% endif %}</td>
+                                <td>{% if 'low_energy_level' in risk_analysis.E %}X{% else %}-{% endif %}</td>
                             </tr>
                         </tbody>
                     </table>

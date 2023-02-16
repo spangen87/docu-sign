@@ -98,31 +98,23 @@ class RiskAnalysis(models.Model):
         verbose_name = 'Risk analys'
         verbose_name_plural = 'Risk analyser'
 
-    SAFETY_CHOICES = [
-        ('protective_covers', 'Skyddskåpor eller dylikt'),
-        ('barriers', 'Barriärer'),
-        ('obstacles', 'Hinder'),
-        ('safety_sensors', 'Säkerhetssensorer'),
-        ('low_energy_level', 'Low Energy-nivå'),
-    ]
-
     RISK = [
         ('LOW', 'Låg risk'),
         ('HIGH', 'Hög risk'),
     ]
 
     object = models.ForeignKey('Object', on_delete=models.CASCADE)
-    door_id = models.CharField(max_length=14, verbose_name='Dörr-ID/platsbeskrivning')
+    door_id = models.CharField(max_length=50, verbose_name='Dörr-ID/platsbeskrivning')
     risk = models.CharField(max_length=4, choices=RISK, verbose_name='Risknivå', help_text="""Hög risk* Om användarna till stor del är äldre,
         funktionshindrade personer eller barn kan all kontakt mellan dörrbladen/dörrkonstruktionen och användaren betraktas som riskfylld.
         Gäller alla automatiska dörrar som inte uppfyller Low Energy-nivån (begränsningar i hastighet, vikt och massa i rörelse).
         Låg risk** Om användargruppen inte passar in i beskrivningen ovan och dörrautomatiken Low Energy används.""")
     automatic_model = models.CharField(max_length=54, verbose_name='Automatisk modell')
-    A = models.CharField(max_length=50, choices=SAFETY_CHOICES, blank=True, null=True, verbose_name='A. Klämrisk*')
-    B = models.CharField(max_length=50, choices=SAFETY_CHOICES, blank=True, null=True, verbose_name='B. Klämrisk*')
-    C = models.CharField(max_length=50, choices=SAFETY_CHOICES, blank=True, null=True, verbose_name='C. Klämrisk')
-    D = models.CharField(max_length=50, choices=SAFETY_CHOICES, blank=True, null=True, verbose_name='D. Klämrisk')
-    E = models.CharField(max_length=50, choices=SAFETY_CHOICES, blank=True, null=True, verbose_name='E. Klämrisk')
+    A = models.CharField(max_length=84, blank=True, null=True, verbose_name='A. Klämrisk*')
+    B = models.CharField(max_length=84, blank=True, null=True, verbose_name='B. Klämrisk*')
+    C = models.CharField(max_length=84, blank=True, null=True, verbose_name='C. Klämrisk')
+    D = models.CharField(max_length=84, blank=True, null=True, verbose_name='D. Klämrisk')
+    E = models.CharField(max_length=84, blank=True, null=True, verbose_name='E. Klämrisk')
 
     notes = models.TextField(max_length=1000, verbose_name='Anmärkningar', help_text='Ange anmärkningar. Börja med bokstaven följt av notering. Ny anmärkning på ny rad.')
 
