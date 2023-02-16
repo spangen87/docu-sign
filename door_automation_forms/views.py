@@ -328,3 +328,28 @@ def edit_risk_analysis(request, risk_analysis_id):
     }
 
     return render(request, template, context)
+
+
+def risk_analysis_pdf(request, risk_analysis_id):
+
+    risk_analysis = get_object_or_404(RiskAnalysis, pk=risk_analysis_id)
+
+    # Return the PDF file as a response
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=riskanalys.pdf'
+    response['Content-Transfer-Encoding'] = 'binary'
+
+    # Render the HTML template to a string
+    html_string = render_to_string('door_automation_forms/print_risk_analysis.html', {'risk_analysis': risk_analysis})
+
+    # Generate the PDF file
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=True) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    return response
