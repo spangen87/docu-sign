@@ -47,7 +47,7 @@ def control_charts(request):
 
             queries = Q(
                 object__name__icontains=query) | Q(
-                    position_id__icontains=query)
+                    position_id__door_id__icontains=query)
             control_charts = control_charts.filter(queries)
 
     template = 'door_automation_forms/kontrollscheman.html'
