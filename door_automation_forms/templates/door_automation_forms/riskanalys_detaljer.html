@@ -14,7 +14,7 @@
             </h3>
         </div>
         <div class="col-12 text-center mb-2">
-            <a class="btn btn-info mt-3" href="#">Redigera Riskanalys</a>
+            <a class="btn btn-info mt-3" href="{% url 'edit_risk_analysis' risk_analysis.id %}">Redigera Riskanalys</a>
             <a class="btn btn-secondary mt-3" href="{% url 'risk_analysis' %}">Tillbaka</a>
             <a class="btn btn-secondary mt-3" href="#">Skapa PDF</a>
         </div>

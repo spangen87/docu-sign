@@ -303,3 +303,28 @@ def risk_analysis_details(request, risk_analysis_id):
     template = 'door_automation_forms/riskanalys_detaljer.html'
 
     return render(request, template, context)
+
+
+def edit_risk_analysis(request, risk_analysis_id):
+    """
+    Edit a existing risk analysis
+    """
+    risk_analysis = get_object_or_404(RiskAnalysis, pk=risk_analysis_id)
+    if request.method == 'POST':
+        form = RiskAnalysisForm(
+            request.POST, request.FILES, instance=risk_analysis)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Uppdateringar sparade!')
+            return redirect('risk_analysis')
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = RiskAnalysisForm(instance=risk_analysis)
+    template = 'door_automation_forms/redigera_riskanalys.html'
+    context = {
+        'form': form,
+        'risk_analysis': risk_analysis,
+    }
+
+    return render(request, template, context)
