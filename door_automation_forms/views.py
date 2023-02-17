@@ -165,8 +165,12 @@ def object_details(request, object_id):
     View details of a object
     """
     object = get_object_or_404(Object, pk=object_id)
+    control_charts = ControlChart.objects.filter(object=object)
+    risk_analysis = RiskAnalysis.objects.filter(object=object)
     context = {
         'object': object,
+        'control_charts': control_charts,
+        'risk_analysis': risk_analysis,
     }
     template = 'door_automation_forms/objekt_detaljer.html'
 

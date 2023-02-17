@@ -39,6 +39,58 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 col-md-6">
+            <div class="table-responsive mb-5">
+                <h5>Kontrollscheman</h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Datum</th>
+                            <th scope="col">Mer info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for chart in control_charts %}
+                        <tr>
+                            <td>{{ chart.position_id }}</td>
+                            <td>{{ chart.date }}</td>
+                            <td><a class="btn btn-info btn-sm" href="{% url 'control_chart_details' control_chart_id=chart.pk %}">Se hela</a></td>
+                            {% empty %}
+                            <td class="text-muted">Inget kontrollschema.</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive mb-5">
+                <h5>Riskanalyser</h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Datum</th>
+                            <th scope="col">Mer info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for analysis in risk_analysis %}
+                        <tr>
+                            <td>{{ analysis.door_id }}</td>
+                            <td>{{ analysis.date }}</td>
+                            <td><a class="btn btn-info btn-sm" href="{% url 'risk_analysis_details' risk_analysis_id=analysis.pk %}">Se hela</a></td>
+                            {% empty %}
+                            <td class="text-muted">Ingen riskanalys.</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
