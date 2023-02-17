@@ -130,8 +130,25 @@ def object(request):
     A view to return the objects
     """
     objects = Object.objects.all()
+    query = None
+
+    if request.GET:
+
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, "Ingen sökterm angiven!")
+
+            queries = Q(
+                name__icontains=query) | Q(
+                    contact_person__icontains=query) | Q(
+                        address__icontains=query) | Q(
+                            constructor__icontains=query)
+            objects = objects.filter(queries)
+
     context = {
         'objects': objects,
+        'search_term': query,
     }
 
     return render(request, 'door_automation_forms/objekt.html', context)

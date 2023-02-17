@@ -16,6 +16,11 @@
         <div class="col-12 col-md-6 text-center mx-auto mb-5">
             <a class="btn btn-lg btn-block btn-secondary" href="{% url 'new_object' %}">Nytt Objekt</a>
             <div class="table-responsive mb-5">
+                <form method="GET" action="{% url 'object' %}" class="form mt-2 mt-md-2">
+                    <input class="form-control mr-sm-2" type="text" name="q" placeholder="Objekt, kontaktperson, byggare eller adress" aria-label="Sök">
+                    <button class="btn btn-outline-secondary my-2 btn-inline" type="submit">Sök</button>
+                    <a class="btn btn-secondary" href="{% url 'object' %}">Visa alla</a>
+                </form>
                 <table class="table table-hover">
                     <thead>
                         <tr>
