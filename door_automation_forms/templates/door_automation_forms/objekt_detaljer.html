@@ -49,6 +49,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Datum</th>
                             <th scope="col">Mer info</th>
+                            <th scope="col">PDF</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,6 +58,7 @@
                             <td>{{ chart.position_id }}</td>
                             <td>{{ chart.date }}</td>
                             <td><a class="btn btn-info btn-sm" href="{% url 'control_chart_details' control_chart_id=chart.pk %}">Se hela</a></td>
+                            <td><a class="btn btn-info btn-sm" href="{% url 'generate_pdf' chart.id %}">Ladda ner</a></td>
                             {% empty %}
                             <td class="text-muted">Inget kontrollschema.</td>
                             <td>-</td>
@@ -74,6 +76,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Datum</th>
                             <th scope="col">Mer info</th>
+                            <th scope="col">PDF</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,6 +85,7 @@
                             <td>{{ analysis.door_id }}</td>
                             <td>{{ analysis.date }}</td>
                             <td><a class="btn btn-info btn-sm" href="{% url 'risk_analysis_details' risk_analysis_id=analysis.pk %}">Se hela</a></td>
+                            <td><a class="btn btn-info btn-sm" href="{% url 'risk_analysis_pdf' analysis.id %}">Ladda ner</a></td>
                             {% empty %}
                             <td class="text-muted">Ingen riskanalys.</td>
                             <td>-</td>
