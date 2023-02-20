@@ -111,7 +111,7 @@ def edit_control_chart(request, control_chart_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Uppdateringar sparade!')
-            return redirect('control_charts')
+            return redirect('control_charts') 
         else:
             messages.error(request, form.errors)
     else:
@@ -224,7 +224,7 @@ def generate_pdf(request, control_chart_id):
 
     # Return the PDF file as a response
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=kontrollschema.pdf'
+    response['Content-Disposition'] = 'attachment; filename=kontrollschema_{}.pdf'.format(control_chart.position_id)
     response['Content-Transfer-Encoding'] = 'binary'
 
     # Render the HTML template to a string
@@ -358,7 +358,7 @@ def risk_analysis_pdf(request, risk_analysis_id):
 
     # Return the PDF file as a response
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=riskanalys.pdf'
+    response['Content-Disposition'] = 'attachment; filename=riskanalys_{}.pdf'.format(risk_analysis.door_id)
     response['Content-Transfer-Encoding'] = 'binary'
 
     # Render the HTML template to a string
