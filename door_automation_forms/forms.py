@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ChoiceField, MultipleChoiceField
-from .models import Object, ControlChart, RiskAnalysis
+from .models import Object, ControlChart, RiskAnalysis, InstallationDescription
 
 
 class ObjectForm(forms.ModelForm):
@@ -77,4 +77,13 @@ class RiskAnalysisForm(forms.ModelForm):
 
     class Meta:
         model = RiskAnalysis
+        fields = '__all__'
+
+
+class InstallationDescriptionForm(forms.ModelForm):
+
+    date_in_use = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
+    class Meta:
+        model = InstallationDescription
         fields = '__all__'

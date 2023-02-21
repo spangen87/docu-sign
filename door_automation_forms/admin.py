@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Object, ControlChart, RiskAnalysis
+from .models import Object, ControlChart, RiskAnalysis, InstallationDescription
 
 
 class ObjectAdmin(admin.ModelAdmin):
@@ -34,6 +34,18 @@ class RiskAnalysisAdmin(admin.ModelAdmin):
     ordering = ('date', 'object')
 
 
+class InstallationDescriptionAdmin(admin.ModelAdmin):
+    list_display = (
+        'object_name',
+        'door_name',
+        'date_in_use',
+        'technician',
+    )
+
+    ordering = ('object_name', 'door_name')
+
+
 admin.site.register(Object, ObjectAdmin)
 admin.site.register(ControlChart, ControlChartAdmin)
 admin.site.register(RiskAnalysis, RiskAnalysisAdmin)
+admin.site.register(InstallationDescription, InstallationDescriptionAdmin)

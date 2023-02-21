@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from .models import Object, ControlChart, RiskAnalysis
-from .forms import ObjectForm, ControlChartForm, RiskAnalysisForm
+from .models import Object, ControlChart, RiskAnalysis, InstallationDescription
+from .forms import ObjectForm, ControlChartForm, RiskAnalysisForm, InstallationDescriptionForm
 from django.http import FileResponse, HttpResponse
 from django.template.loader import get_template, render_to_string
 from django.db.models import Q
@@ -12,6 +12,7 @@ from weasyprint import HTML
 import tempfile
 
 
+@login_required
 def forms(request):
     """
     A view to return the forms page
@@ -19,6 +20,7 @@ def forms(request):
     return render(request, 'door_automation_forms/all_forms.html')
 
 
+@login_required
 def control_charts(request):
     """
     A view to render all control charts
@@ -65,6 +67,7 @@ def control_charts(request):
     return render(request, template, context)
 
 
+@login_required
 def new_control_chart(request):
     """
     A view to return the kontrollschema form
@@ -87,6 +90,7 @@ def new_control_chart(request):
     return render(request, 'door_automation_forms/nytt_kontrollschema.html', context)
 
 
+@login_required
 def control_chart_details(request, control_chart_id):
     """
     View to render details for a control chart
@@ -100,6 +104,7 @@ def control_chart_details(request, control_chart_id):
     return render(request, template, context)
 
 
+@login_required
 def edit_control_chart(request, control_chart_id):
     """
     Edit a existing control chart
@@ -125,6 +130,7 @@ def edit_control_chart(request, control_chart_id):
     return render(request, template, context)
 
 
+@login_required
 def object(request):
     """
     A view to return the objects
@@ -154,6 +160,7 @@ def object(request):
     return render(request, 'door_automation_forms/objekt.html', context)
 
 
+@login_required
 def new_object(request):
     """
     Add new object
@@ -177,6 +184,7 @@ def new_object(request):
     return render(request, template, context)
 
 
+@login_required
 def object_details(request, object_id):
     """
     View details of a object
@@ -194,6 +202,7 @@ def object_details(request, object_id):
     return render(request, template, context)
 
 
+@login_required
 def edit_object(request, object_id):
     """
     Edit a existing object
@@ -218,6 +227,7 @@ def edit_object(request, object_id):
     return render(request, template, context)
 
 
+@login_required
 def generate_pdf(request, control_chart_id):
 
     control_chart = get_object_or_404(ControlChart, pk=control_chart_id)
@@ -243,6 +253,7 @@ def generate_pdf(request, control_chart_id):
     return response
 
 
+@login_required
 def new_risk_analysis(request):
     """
     A view to return the riskanalys form
@@ -268,6 +279,7 @@ def new_risk_analysis(request):
     return render(request, template, context)
 
 
+@login_required
 def risk_analysis(request):
     """
     A view to render all risk analysis
@@ -314,6 +326,7 @@ def risk_analysis(request):
     return render(request, template, context)
 
 
+@login_required
 def risk_analysis_details(request, risk_analysis_id):
     """
     View details of a object
@@ -327,6 +340,7 @@ def risk_analysis_details(request, risk_analysis_id):
     return render(request, template, context)
 
 
+@login_required
 def edit_risk_analysis(request, risk_analysis_id):
     """
     Edit a existing risk analysis
@@ -352,6 +366,7 @@ def edit_risk_analysis(request, risk_analysis_id):
     return render(request, template, context)
 
 
+@login_required
 def risk_analysis_pdf(request, risk_analysis_id):
 
     risk_analysis = get_object_or_404(RiskAnalysis, pk=risk_analysis_id)
@@ -375,3 +390,28 @@ def risk_analysis_pdf(request, risk_analysis_id):
         response.write(output.read())
 
     return response
+
+
+def new_installation_description(request):
+    """
+    A view to return the riskanalys form
+    """
+    if request.method == 'POST':
+        form = InstallationDescriptionForm(request.POST)
+        if form.is_valid():
+            # Save the form
+            form.save()
+            messages.success(request, 'Installationsbeskrivning sparad!')
+            return redirect('risk_analysis')
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = InstallationDescriptionForm()
+
+    context = {
+        'form': form,
+    }
+
+    template = 'door_automation_forms/ny_installationsbeskrivning.html'
+
+    return render(request, template, context)

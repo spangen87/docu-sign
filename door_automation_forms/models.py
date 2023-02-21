@@ -125,3 +125,54 @@ class RiskAnalysis(models.Model):
 
     def __str__(self):
         return self.door_id
+
+
+class InstallationDescription(models.Model):
+    """
+    Model for Installationsbeskrivningar
+    """
+    class Meta:
+        verbose_name = 'Installationsbeskrivning'
+        verbose_name_plural = 'Installationsbeskrivningar'
+
+    DOOR_TYPE_CHOICES = [
+        ('1-flyg', '1-flyg'),
+        ('2-flyg', '2-flyg'),
+    ]
+
+    DOOR_KIND = [
+        ('WOOD', 'Trä'),
+        ('STEEL', 'Stål'),
+        ('ALUMINIUM', 'Aluminium'),
+        ('PROFILE', 'Profil'),
+        ('GLASS', 'Glas'),
+    ]
+
+    batch_number = models.CharField(max_length=24, verbose_name='Automatik serie-/batch-nr')
+    date_in_use = models.DateField(verbose_name='Datum för driftsättning')
+    installed_by = models.CharField(max_length=54, verbose_name='Installerad av företag')
+    technician = models.CharField(max_length=54, verbose_name='v/tekniker')
+    object_name = models.ForeignKey(Object, on_delete=models.CASCADE)
+    door_name = models.ForeignKey(RiskAnalysis, on_delete=models.CASCADE)
+    door_type = models.CharField(max_length=6, choices=DOOR_TYPE_CHOICES, verbose_name='Dörrparti')
+    weight = models.CharField(max_length=24, verbose_name='Antagen vikt per dörrblad')
+    width = models.CharField(max_length=24, verbose_name='Total bredd')
+    kind_of_door = models.CharField(max_length=9, choices=DOOR_KIND, verbose_name='Dörrtyp')
+
+    program_selector_internal = models.BooleanField(verbose_name='Programväljare internt')
+    program_selector_internal_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Kommentar')
+    program_selector_external = models.BooleanField(verbose_name='Programväljare externt')
+    program_selector_external_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Kommentar')
+    electromechanical_lock_internal = models.BooleanField(verbose_name='Elektromekaniskt lås internt')
+    electromechanical_lock_internal_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Kommentar')
+    electromechanical_lock_external = models.BooleanField(verbose_name='Elektromekaniskt lås externt')
+    electromechanical_lock_external_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Kommentar')
+    mechanical_micro_switch = models.BooleanField(verbose_name='Mekaniskt lås med mikrobrytare')
+    mechanical_micro_switch_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Kommentar')
+    impulse_generator = models.BooleanField(verbose_name='Impulsgivare')
+    impulse_generator_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Kommentar')
+    sensors = models.BooleanField(verbose_name='Sensorer')
+    sensors_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Kommentar')
+
+    def __str__(self):
+        return self.batch_number
