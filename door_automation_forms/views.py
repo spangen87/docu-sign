@@ -434,7 +434,7 @@ def installation_description(request):
             sort = sortkey
             if sortkey == 'object':
                 sortkey = 'lower_object'
-                analysis = analysis.annotate(lower_object=Lower('object'))
+                descriptions = descriptions.annotate(lower_object=Lower('object_name'))
 
             if 'direction' in request.GET:
                 direction = request.GET['direction']
