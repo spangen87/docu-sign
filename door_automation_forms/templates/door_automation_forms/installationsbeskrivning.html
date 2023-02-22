@@ -17,7 +17,7 @@
             <a class="btn btn-lg btn-block btn-secondary" href="#">Ny Installationsbeskrivning</a>
             <div class="table-responsive mb-5">
                 <form method="GET" action="#" class="form mt-2 mt-md-2">
-                    <input class="form-control mr-sm-2" type="text" name="q" placeholder="Objekt eller Position/ID" aria-label="Sök">
+                    <input class="form-control mr-sm-2" type="text" name="q" placeholder="Objekt, Position/ID, Serie-/Batch-nr" aria-label="Sök">
                     <button class="btn btn-outline-secondary my-2 btn-inline" type="submit">Sök</button>
                     <a class="btn btn-secondary" href="{% url 'installation_description' %}">Visa alla</a>
                 </form>
@@ -36,7 +36,7 @@
                             <td>{{ description.object_name }}</td>
                             <td>{{ description.door_name }}</td>
                             <td>{{ description.date_in_use }}</td>
-                            <td><a class="btn btn-info btn-sm mb-1 mt-1" href="#">Läs
+                            <td><a class="btn btn-info btn-sm mb-1 mt-1" href="{% url 'installation_description_details' description.id %}">Läs
                                 Mer</a></td>
                         </tr>
                         {% endfor %}

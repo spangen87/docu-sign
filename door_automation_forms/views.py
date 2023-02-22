@@ -403,7 +403,7 @@ def new_installation_description(request):
             # Save the form
             form.save()
             messages.success(request, 'Installationsbeskrivning sparad!')
-            return redirect('risk_analysis')
+            return redirect('installation_description')
         else:
             messages.error(request, form.errors)
     else:
@@ -434,7 +434,8 @@ def installation_description(request):
             sort = sortkey
             if sortkey == 'object':
                 sortkey = 'lower_object'
-                descriptions = descriptions.annotate(lower_object=Lower('object_name'))
+                descriptions = descriptions.annotate(
+                    lower_object=Lower('object_name'))
 
             if 'direction' in request.GET:
                 direction = request.GET['direction']
@@ -449,7 +450,8 @@ def installation_description(request):
 
             queries = Q(
                 object_name__name__icontains=query) | Q(
-                    door_name__door_id__icontains=query)
+                    door_name__door_id__icontains=query) | Q(
+                        batch_number__icontains=query)
             descriptions = descriptions.filter(queries)
 
     template = 'door_automation_forms/installationsbeskrivning.html'
@@ -461,5 +463,19 @@ def installation_description(request):
         'search_term': query,
         'current_sorting': current_sorting,
     }
+
+    return render(request, template, context)
+
+
+@login_required
+def installation_description_details(request, installation_description_id):
+    """
+    View details of a object
+    """
+    description = get_object_or_404(InstallationDescription, pk=installation_description_id)
+    context = {
+        'description': description,
+    }
+    template = 'door_automation_forms/installationsbeskrivning_detaljer.html'
 
     return render(request, template, context)
