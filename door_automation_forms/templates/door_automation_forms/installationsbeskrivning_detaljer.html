@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% load jsignature_filters %}
+
+{% block title %}Installationsbeskrivning Detaljer{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-12 col-md-6 my-auto mx-auto text-center">
+            <h3 class="pt-5 mt-3">
+                Detaljer för: {{ description.batch_number }}
+            </h3>
+        </div>
+        <div class="col-12 text-center mb-2">
+            <a class="btn btn-info mt-3 btn-sm" href="#">Redigera Kontrollschema</a>
+            <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'installation_description' %}">Alla Installationsbeskrivningar</a>
+
+            <a class="btn btn-secondary mt-3 btn-sm" href="#">Skapa PDF</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 text-left mx-auto mb-5">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <p class="card-title"><strong>Objekt:</strong></p>
+                    <p class="card-text"> {{ description.object_name }}</p>
+                    <p><strong>Batch/Serienummer:</strong></p>
+                    <p>{{ description.batch_number }}</p>
+                    <hr>
+                    <p><strong>Dörrposition/ID:</strong></p>
+                    <p>{{ description.door_name }}</p>
+                    <hr>
+                    <p><strong>v/tekniker:</strong></p>
+                    <p>{{ description.technician }}</p>
+                    <hr>
+                    <p><strong>Datum för driftsättning:</strong></p>
+                    <p> {{ description.date_in_use }}</p>
+                    <hr>
+                    <p><strong>Installerad av:</strong></p>
+                    <p> {{ description.installed_by }}</p>
+                    <hr>
+                    <p><strong>Dörrtyp:</strong></p>
+                    <p> {{ description.door_type }}</p>
+                    <hr>
+                    <p><strong>Uppskattad vikt av dörrblad:</strong></p>
+                    <p> {{ description.weight }}</p>
+                    <hr>
+                    <p><strong>Bredd:</strong></p>
+                    <p> {{ description.width }}</p>
+                    <hr>
+                    <p><strong>Dörrtyp:</strong></p>
+                    <p> {{ description.kind_of_door }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 text-left mx-auto mb-5">
+            <div class="card mb-5">
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
