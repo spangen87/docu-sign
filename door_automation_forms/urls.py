@@ -18,4 +18,5 @@ urlpatterns = [
     path('generate_pdf/<int:control_chart_id>', views.generate_pdf, name='generate_pdf'),
     path('print_riskanalys/<int:risk_analysis_id>', views.risk_analysis_pdf, name='risk_analysis_pdf'),
     path('ny_installationsbeskrivning/', views.new_installation_description, name='new_installation_description'),
+    path('installationsbeskrivning/', views.installation_description, name='installation_description'),
 ]

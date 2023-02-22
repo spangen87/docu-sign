@@ -392,6 +392,7 @@ def risk_analysis_pdf(request, risk_analysis_id):
     return response
 
 
+@login_required
 def new_installation_description(request):
     """
     A view to return the riskanalys form
@@ -413,5 +414,52 @@ def new_installation_description(request):
     }
 
     template = 'door_automation_forms/ny_installationsbeskrivning.html'
+
+    return render(request, template, context)
+
+
+@login_required
+def installation_description(request):
+    """
+    A view to render all installation descriptions
+    """
+    descriptions = InstallationDescription.objects.all()
+    query = None
+    sort = None
+    direction = None
+
+    if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'object':
+                sortkey = 'lower_object'
+                analysis = analysis.annotate(lower_object=Lower('object'))
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            descriptions = descriptions.order_by(sortkey)
+
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, "Ingen sökterm angiven!")
+
+            queries = Q(
+                object_name__name__icontains=query) | Q(
+                    door_name__door_id__icontains=query)
+            descriptions = descriptions.filter(queries)
+
+    template = 'door_automation_forms/installationsbeskrivning.html'
+
+    current_sorting = f'{sort}_{direction}'
+
+    context = {
+        'descriptions': descriptions,
+        'search_term': query,
+        'current_sorting': current_sorting,
+    }
 
     return render(request, template, context)
