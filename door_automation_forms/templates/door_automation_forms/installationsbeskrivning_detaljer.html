@@ -50,14 +50,78 @@
                     <p> {{ description.width }}</p>
                     <hr>
                     <p><strong>Dörrtyp:</strong></p>
-                    <p> {{ description.kind_of_door }}</p>
+                    <p> {{ description.get_kind_of_door_display }}</p>
                 </div>
             </div>
         </div>
         <div class="col-12 col-md-6 text-left mx-auto mb-5">
             <div class="card mb-5">
                 <div class="card-body">
-                    
+                    <h5>Tillägg som ingår i installationen</h5>
+                    <hr>
+                    <p>{% if description.program_selector_internal %}
+                        <i class="fa fa-check text-success"></i>
+                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
+                        <strong>Programväljare internt: </strong>
+                        {% if description.program_selector_internal_notes %}
+                        {{ description.program_selector_internal_notes }}
+                        {% else %} 
+                        {% endif %}
+                    </p>
+                    <p>{% if description.program_selector_external %}
+                        <i class="fa fa-check text-success"></i>
+                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
+                        <strong>Programväljare externt: </strong>
+                        {% if description.program_selector_external_notes %}
+                        {{ description.program_selector_external_notes }}
+                        {% else %} 
+                        {% endif %}
+                    </p>
+                    <p>{% if description.electromechanical_lock_internal %}
+                        <i class="fa fa-check text-success"></i>
+                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
+                        <strong>Elektromekaniskt lås internt: </strong>
+                        {% if description.electromechanical_lock_internal_notes %}
+                        {{ description.electromechanical_lock_internal_notes }}
+                        {% else %} 
+                        {% endif %}
+                    </p>
+                    <p>{% if description.electromechanical_lock_external %}
+                        <i class="fa fa-check text-success"></i>
+                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
+                        <strong>Elektromekaniskt lås externt: </strong>
+                        {% if description.electromechanical_lock_external_notes %}
+                        {{ description.electromechanical_lock_external_notes }}
+                        {% else %} 
+                        {% endif %}
+                    </p>
+                    <p>{% if description.mechanical_micro_switch %}
+                        <i class="fa fa-check text-success"></i>
+                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
+                        <strong>Mekaniskt lås med mikrobrytare: </strong>
+                        {% if description.mechanical_micro_switch_notes %}
+                        {{ description.mechanical_micro_switch_notes }}
+                        {% else %} 
+                        {% endif %}
+                    </p>
+                    <p>{% if description.impulse_generator %}
+                        <i class="fa fa-check text-success"></i>
+                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
+                        <strong>Impulsgivare: </strong>
+                        {% if description.impulse_generator_notes %}
+                        {{ description.impulse_generator_notes }}
+                        {% else %} 
+                        {% endif %}
+                    </p>
+                    <p>{% if description.sensors %}
+                        <i class="fa fa-check text-success"></i>
+                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
+                        <strong>Sensorer: </strong>
+                        {% if description.sensors_notes %}
+                        {{ description.sensors_notes }}
+                        {% else %} 
+                        {% endif %}
+                    </p>
                 </div>
             </div>
         </div>
