@@ -17,6 +17,7 @@ urlpatterns = [
     path('riskanalys_detaljer/<int:risk_analysis_id>', views.risk_analysis_details, name='risk_analysis_details'),
     path('generate_pdf/<int:control_chart_id>', views.generate_pdf, name='generate_pdf'),
     path('print_riskanalys/<int:risk_analysis_id>', views.risk_analysis_pdf, name='risk_analysis_pdf'),
+    path('print_installationsbeskrivning/<int:installation_description_id>', views.installation_description_pdf, name='installation_description_pdf'),
     path('ny_installationsbeskrivning/', views.new_installation_description, name='new_installation_description'),
     path('installationsbeskrivning/', views.installation_description, name='installation_description'),
     path('installationsbeskrivning_detaljer/<int:installation_description_id>', views.installation_description_details, name='installation_description_details'),

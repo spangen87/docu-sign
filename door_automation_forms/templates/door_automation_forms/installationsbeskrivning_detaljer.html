@@ -16,7 +16,7 @@
             <a class="btn btn-info mt-3 btn-sm" href="{% url 'edit_installation_description' description.id %}">Redigera Installationsbeskrivning</a>
             <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'installation_description' %}">Alla Installationsbeskrivningar</a>
 
-            <a class="btn btn-secondary mt-3 btn-sm" href="#">Skapa PDF</a>
+            <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'installation_description_pdf' description.id %}">Skapa PDF</a>
         </div>
     </div>
     <div class="row">

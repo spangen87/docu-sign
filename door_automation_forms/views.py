@@ -505,3 +505,29 @@ def edit_installation_description(request, installation_description_id):
     }
 
     return render(request, template, context)
+
+
+@login_required
+def installation_description_pdf(request, installation_description_id):
+
+    description = get_object_or_404(InstallationDescription, pk=installation_description_id)
+
+    # Return the PDF file as a response
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=installationsbeskrivning_{}.pdf'.format(description.batch_number)
+    response['Content-Transfer-Encoding'] = 'binary'
+
+    # Render the HTML template to a string
+    html_string = render_to_string('door_automation_forms/print_installationsbeskrivning.html', {'description': description, 'MEDIA_URL': settings.MEDIA_URL,})
+
+    # Generate the PDF file
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=True) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    return response
