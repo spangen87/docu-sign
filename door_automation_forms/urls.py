@@ -20,4 +20,5 @@ urlpatterns = [
     path('ny_installationsbeskrivning/', views.new_installation_description, name='new_installation_description'),
     path('installationsbeskrivning/', views.installation_description, name='installation_description'),
     path('installationsbeskrivning_detaljer/<int:installation_description_id>', views.installation_description_details, name='installation_description_details'),
+    path('redigera_installationsbeskrivning/<int:installation_description_id>', views.edit_installation_description, name='edit_installation_description'),
 ]

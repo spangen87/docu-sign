@@ -479,3 +479,29 @@ def installation_description_details(request, installation_description_id):
     template = 'door_automation_forms/installationsbeskrivning_detaljer.html'
 
     return render(request, template, context)
+
+
+@login_required
+def edit_installation_description(request, installation_description_id):
+    """
+    Edit a existing risk analysis
+    """
+    description = get_object_or_404(InstallationDescription, pk=installation_description_id)
+    if request.method == 'POST':
+        form = InstallationDescriptionForm(
+            request.POST, request.FILES, instance=description)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Uppdateringar sparade!')
+            return redirect('installation_description')
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = InstallationDescriptionForm(instance=description)
+    template = 'door_automation_forms/redigera_installationsbeskrivning.html'
+    context = {
+        'form': form,
+        'description': description,
+    }
+
+    return render(request, template, context)
