@@ -1,0 +1,172 @@
+{% load static %}
+{% load jsignature_filters %}
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+    <title>{{ risk_analysis.door_id }}</title>
+    <style>
+        body {
+            font-size: 10pt;
+        }
+
+        @page {
+            @bottom-right {
+                content: counter(page);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 my-auto mx-auto text-center">
+                <h3 class="mt-2 mb-5">
+                    Installationsbeskrivning för: {{ description.batch_number }}
+                </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 text-left mx-auto mb-2">
+                <div>
+                    <div>
+                        <p><strong>Objekt:</strong></p>
+                        <p> {{ description.object_name }}</p>
+                        <p><strong>Batch/Serienummer:</strong></p>
+                        <p>{{ description.batch_number }}</p>
+                        <hr>
+                        <p><strong>Dörrposition/ID:</strong></p>
+                        <p>{{ description.door_name }}</p>
+                        <hr>
+                        <p><strong>v/tekniker:</strong></p>
+                        <p>{{ description.technician }}</p>
+                        <hr>
+                        <p><strong>Datum för driftsättning:</strong></p>
+                        <p> {{ description.date_in_use }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 text-left mx-auto mb-2">
+                <div>
+                    <div>
+                        <p><strong>Installerad av:</strong></p>
+                        <p> {{ description.installed_by }}</p>
+                        <hr>
+                        <p><strong>Dörrtyp:</strong></p>
+                        <p> {{ description.door_type }}</p>
+                        <hr>
+                        <p><strong>Uppskattad vikt av dörrblad:</strong></p>
+                        <p> {{ description.weight }}</p>
+                        <hr>
+                        <p><strong>Bredd:</strong></p>
+                        <p> {{ description.width }}</p>
+                        <hr>
+                        <p><strong>Dörrtyp:</strong></p>
+                        <p> {{ description.get_kind_of_door_display }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 text-left mx-auto">
+                <div>
+                    <div>
+                        <h5 class="mt-4">Tillägg som ingår i installationen</h5>
+                        <hr>
+                        <p>{% if description.program_selector_internal %}
+                            <i class="fa fa-check text-success"></i><strong> Programväljare internt: </strong>
+                            {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted">Programväljare
+                                internt: </strong>
+                            {% endif %}
+
+                            {% if description.program_selector_internal_notes %}
+                            {{ description.program_selector_internal_notes }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+                        <p>{% if description.program_selector_external %}
+                            <i class="fa fa-check text-success"></i><strong> Programväljare externt: </strong>
+                            {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted"> Programväljare
+                                externt: </strong>
+                            {% endif %}
+
+                            {% if description.program_selector_external_notes %}
+                            {{ description.program_selector_external_notes }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+                        <p>{% if description.electromechanical_lock_internal %}
+                            <i class="fa fa-check text-success"></i><strong> Elektromekaniskt lås internt: </strong>
+                            {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted">
+                                Elektromekaniskt lås internt: </strong>
+                            {% endif %}
+
+                            {% if description.electromechanical_lock_internal_notes %}
+                            {{ description.electromechanical_lock_internal_notes }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+                        <p>{% if description.electromechanical_lock_external %}
+                            <i class="fa fa-check text-success"></i><strong> Elektromekaniskt lås externt: </strong>
+                            {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted">
+                                Elektromekaniskt lås externt: </strong>
+                            {% endif %}
+
+                            {% if description.electromechanical_lock_external_notes %}
+                            {{ description.electromechanical_lock_external_notes }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+                        <p>{% if description.mechanical_micro_switch %}
+                            <i class="fa fa-check text-success"></i><strong> Mekaniskt lås med mikrobrytare: </strong>
+                            {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted"> Mekaniskt lås
+                                med mikrobrytare: </strong>
+                            {% endif %}
+
+                            {% if description.mechanical_micro_switch_notes %}
+                            {{ description.mechanical_micro_switch_notes }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+                        <p>{% if description.impulse_generator %}
+                            <i class="fa fa-check text-success"></i><strong> Impulsgivare: </strong>
+                            {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted"> Impulsgivare:
+                            </strong>
+                            {% endif %}
+
+                            {% if description.impulse_generator_notes %}
+                            {{ description.impulse_generator_notes }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+                        <p>{% if description.sensors %}
+                            <i class="fa fa-check text-success"></i><strong> Sensorer: </strong>
+                            {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted"> Sensorer:
+                            </strong>
+                            {% endif %}
+
+                            {% if description.sensors_notes %}
+                            {{ description.sensors_notes }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>

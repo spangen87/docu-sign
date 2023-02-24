@@ -60,63 +60,70 @@
                     <h5>Tillägg som ingår i installationen</h5>
                     <hr>
                     <p>{% if description.program_selector_internal %}
-                        <i class="fa fa-check text-success"></i>
-                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
-                        <strong>Programväljare internt: </strong>
+                        <i class="fa fa-check text-success"></i><strong> Programväljare internt: </strong>
+                        {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted">Programväljare internt: </strong>
+                        {% endif %}
+                        
                         {% if description.program_selector_internal_notes %}
                         {{ description.program_selector_internal_notes }}
                         {% else %} 
                         {% endif %}
                     </p>
                     <p>{% if description.program_selector_external %}
-                        <i class="fa fa-check text-success"></i>
-                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
-                        <strong>Programväljare externt: </strong>
+                        <i class="fa fa-check text-success"></i><strong> Programväljare externt: </strong>
+                        {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted"> Programväljare externt: </strong>
+                        {% endif %}
+                        
                         {% if description.program_selector_external_notes %}
                         {{ description.program_selector_external_notes }}
                         {% else %} 
                         {% endif %}
                     </p>
                     <p>{% if description.electromechanical_lock_internal %}
-                        <i class="fa fa-check text-success"></i>
-                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
-                        <strong>Elektromekaniskt lås internt: </strong>
+                        <i class="fa fa-check text-success"></i><strong> Elektromekaniskt lås internt: </strong>
+                        {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted"> Elektromekaniskt lås internt: </strong>
+                        {% endif %}
+                        
                         {% if description.electromechanical_lock_internal_notes %}
                         {{ description.electromechanical_lock_internal_notes }}
                         {% else %} 
                         {% endif %}
                     </p>
                     <p>{% if description.electromechanical_lock_external %}
-                        <i class="fa fa-check text-success"></i>
-                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
-                        <strong>Elektromekaniskt lås externt: </strong>
+                        <i class="fa fa-check text-success"></i><strong> Elektromekaniskt lås externt: </strong>
+                        {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted"> Elektromekaniskt lås externt: </strong>
+                        {% endif %}
+                        
                         {% if description.electromechanical_lock_external_notes %}
                         {{ description.electromechanical_lock_external_notes }}
                         {% else %} 
                         {% endif %}
                     </p>
                     <p>{% if description.mechanical_micro_switch %}
-                        <i class="fa fa-check text-success"></i>
-                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
-                        <strong>Mekaniskt lås med mikrobrytare: </strong>
+                        <i class="fa fa-check text-success"></i><strong> Mekaniskt lås med mikrobrytare: </strong>
+                        {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted"> Mekaniskt lås med mikrobrytare: </strong>
+                        {% endif %}
+                        
                         {% if description.mechanical_micro_switch_notes %}
                         {{ description.mechanical_micro_switch_notes }}
                         {% else %} 
                         {% endif %}
                     </p>
                     <p>{% if description.impulse_generator %}
-                        <i class="fa fa-check text-success"></i>
-                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
-                        <strong>Impulsgivare: </strong>
+                        <i class="fa fa-check text-success"></i><strong> Impulsgivare: </strong>
+                        {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted"> Impulsgivare: </strong>
+                        {% endif %}
+                        
                         {% if description.impulse_generator_notes %}
                         {{ description.impulse_generator_notes }}
                         {% else %} 
                         {% endif %}
                     </p>
                     <p>{% if description.sensors %}
-                        <i class="fa fa-check text-success"></i>
-                        {% else %}<i class="fa fa-minus text-danger"></i>{% endif %}
-                        <strong>Sensorer: </strong>
+                        <i class="fa fa-check text-success"></i><strong> Sensorer: </strong>
+                        {% else %}<i class="fa fa-minus text-danger"></i><strong class="text-muted"> Sensorer: </strong>
+                        {% endif %}
+                        
                         {% if description.sensors_notes %}
                         {{ description.sensors_notes }}
                         {% else %} 
