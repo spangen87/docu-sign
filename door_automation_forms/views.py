@@ -192,10 +192,12 @@ def object_details(request, object_id):
     object = get_object_or_404(Object, pk=object_id)
     control_charts = ControlChart.objects.filter(object=object)
     risk_analysis = RiskAnalysis.objects.filter(object=object)
+    descriptions = InstallationDescription.objects.filter(object_name=object)
     context = {
         'object': object,
         'control_charts': control_charts,
         'risk_analysis': risk_analysis,
+        'descriptions': descriptions,
     }
     template = 'door_automation_forms/objekt_detaljer.html'
 

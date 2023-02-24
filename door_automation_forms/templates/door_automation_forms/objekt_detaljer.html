@@ -95,6 +95,33 @@
                     </tbody>
                 </table>
             </div>
+            <div class="table-responsive mb-5">
+                <h5>Installationsbeskrivningar</h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>              
+                            <th scope="col">ID</th>
+                            <th scope="col">Batchnummer</th>
+                            <th scope="col">Mer info</th>
+                            <th scope="col">PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for description in descriptions %}
+                        <tr>
+                            <td>{{ description.door_name }}</td>
+                            <td>{{ description.batch_number }}</td>
+                            <td><a class="btn btn-info btn-sm" href="{% url 'installation_description_details' installation_description_id=description.pk %}">Se hela</a></td>
+                            <td><a class="btn btn-info btn-sm" href="{% url 'installation_description_pdf' description.id %}">Ladda ner</a></td>
+                            {% empty %}
+                            <td class="text-muted">Ingen Installationsbeskrivning.</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
