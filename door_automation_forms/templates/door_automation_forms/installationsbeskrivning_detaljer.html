@@ -15,7 +15,7 @@
         <div class="col-12 text-center mb-2">
             <a class="btn btn-info mt-3 btn-sm" href="{% url 'edit_installation_description' description.id %}">Redigera Installationsbeskrivning</a>
             <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'installation_description' %}">Alla Installationsbeskrivningar</a>
-
+            <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'object_details' object_id=description.object_name.pk %}">Till Objektet</a>
             <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'installation_description_pdf' description.id %}">Skapa PDF</a>
         </div>
     </div>
@@ -129,6 +129,33 @@
                         {% else %} 
                         {% endif %}
                     </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5>Utförda servicar</h5>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>              
+                                <th scope="col">Datum</th>
+                                <th scope="col">Mer info</th>
+                                <th scope="col">PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td></td>
+                                <td><a class="btn btn-info btn-sm" href="#">Se hela</a></td>
+                                <td><a class="btn btn-info btn-sm" href="#">Ladda ner</a></td>
+
+                                <!-- <td class="text-muted">Ingen Installationsbeskrivning.</td>
+                                <td>-</td>
+                                <td>-</td> -->
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
