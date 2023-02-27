@@ -190,13 +190,13 @@ class Service(models.Model):
     service_year = models.CharField(max_length=4, verbose_name='År')
 
     periodic_control = models.BooleanField(verbose_name='Periodisk kontroll och underhåll, s. 5-7 (A-C)')
-    periodic_control_notes = models.CharField(max_length=200, verbose_name='Rapport/fel/ska utföras')
+    periodic_control_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Rapport/fel/ska utföras')
     repair_ordered = models.BooleanField(verbose_name='Beställd reparation')
-    repair_ordered_notes = models.CharField(max_length=200, verbose_name='Rapport/fel/ska utföras')
+    repair_ordered_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Rapport/fel/ska utföras')
     installation_changed = models.BooleanField(verbose_name='Ändring av installation')
-    installation_changed_notes = models.CharField(max_length=200, verbose_name='Rapport/fel/ska utföras')
+    installation_changed_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Rapport/fel/ska utföras')
     other = models.BooleanField(verbose_name='Annat')
-    other_notes = models.CharField(max_length=200, verbose_name='Rapport/fel/ska utföras')
+    other_notes = models.CharField(max_length=200, blank=True, null=True, verbose_name='Rapport/fel/ska utföras')
 
     company = models.CharField(max_length=54, verbose_name='Utförande företag')
     technician = models.CharField(max_length=54, verbose_name='Tekniker')

@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from .models import Object, ControlChart, RiskAnalysis, InstallationDescription
-from .forms import ObjectForm, ControlChartForm, RiskAnalysisForm, InstallationDescriptionForm
+from .models import Object, ControlChart, RiskAnalysis, InstallationDescription, Service
+from .forms import ObjectForm, ControlChartForm, RiskAnalysisForm, InstallationDescriptionForm, ServiceForm
 from django.http import FileResponse, HttpResponse
 from django.template.loader import get_template, render_to_string
 from django.db.models import Q
@@ -533,3 +533,29 @@ def installation_description_pdf(request, installation_description_id):
         response.write(output.read())
 
     return response
+
+
+@login_required
+def new_service(request):
+    """
+    A view to return the service form
+    """
+    if request.method == 'POST':
+        form = ServiceForm(request.POST)
+        if form.is_valid():
+            # Save the form
+            form.save()
+            messages.success(request, 'Service sparad!')
+            return redirect('installation_description')
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = ServiceForm()
+
+    context = {
+        'form': form,
+    }
+
+    template = 'door_automation_forms/ny_service.html'
+
+    return render(request, template, context)
