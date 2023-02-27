@@ -559,3 +559,52 @@ def new_service(request):
     template = 'door_automation_forms/ny_service.html'
 
     return render(request, template, context)
+
+
+@login_required
+def service(request):
+    """
+    A view to render all services
+    """
+    services = Service.objects.all()
+    query = None
+    sort = None
+    direction = None
+
+    if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            # if sortkey == 'object':
+            #     sortkey = 'lower_object'
+            #     descriptions = descriptions.annotate(
+            #         lower_object=Lower('object_name'))
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            services = services.order_by(sortkey)
+
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, "Ingen sökterm angiven!")
+
+            queries = Q(
+                service_year__icontains=query) | Q(
+                    technician__icontains=query) | Q(
+                        door_automatic__batch_number__icontains=query)
+            services = services.filter(queries)
+
+    template = 'door_automation_forms/service.html'
+
+    current_sorting = f'{sort}_{direction}'
+
+    context = {
+        'services': services,
+        'search_term': query,
+        'current_sorting': current_sorting,
+    }
+
+    return render(request, template, context)

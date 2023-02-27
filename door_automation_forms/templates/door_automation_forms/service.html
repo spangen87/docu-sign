@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Service{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-12 col-md-6 my-auto mx-auto text-center">
+            <h3 class="py-3 mt-5">
+                Service
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 text-center mx-auto mb-5">
+            <a class="btn btn-lg btn-block btn-secondary" href="{% url 'new_service' %}">Ny Service</a>
+            <div class="table-responsive mb-5">
+                <form method="GET" action="{% url 'service' %}" class="form mt-2 mt-md-2">
+                    <input class="form-control mr-sm-2" type="text" name="q" placeholder="Batchnummer, år, tekniker" aria-label="Sök">
+                    <button class="btn btn-outline-secondary my-2 btn-inline" type="submit">Sök</button>
+                    <a class="btn btn-secondary" href="{% url 'service' %}">Visa alla</a>
+                </form>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Automatik</th>
+                            <th scope="col">År</th>
+                            <th scope="col">Mer info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for service in services %}
+                        <tr>
+                            <td>{{ service.door_automatic }}</td>
+                            <td>{{ service.service_year }}</td>
+                            <td><a class="btn btn-info btn-sm mb-1 mt-1" href="#">Läs
+                                    Mer</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 mb-5">
+                <a href="{% url 'forms' %}" class="btn btn-info text-uppercase">Tillbaka till menyn</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
