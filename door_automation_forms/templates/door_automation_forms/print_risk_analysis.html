@@ -60,7 +60,21 @@
         <div class="row">
             <div class="col-12 mb-3">
                 <h5>Anmärkningar:</h5>
-                <p> {{ risk_analysis.notes|linebreaks }}</p>
+                {% if risk_analysis.A_note %}
+                <p><strong>A:</strong> {{ risk_analysis.A_note }}</p>
+                {% endif %}
+                {% if risk_analysis.B_note %}
+                <p><strong>B:</strong> {{ risk_analysis.B_note }}</p>
+                {% endif %}
+                {% if risk_analysis.C_note %}
+                <p><strong>C:</strong> {{ risk_analysis.C_note }}</p>
+                {% endif %}
+                {% if risk_analysis.D_note %}
+                <p><strong>D:</strong> {{ risk_analysis.D_note }}</p>
+                {% endif %}
+                {% if risk_analysis.E_note %}
+                <p><strong>E:</strong> {{ risk_analysis.E_note }}</p>
+                {% endif %}
                 <hr>
             </div>
         </div>
@@ -120,6 +134,14 @@
                                     <td>{% if 'low_energy_level' in risk_analysis.C %}X{% else %}-{% endif %}</td>
                                     <td>{% if 'low_energy_level' in risk_analysis.D %}X{% else %}-{% endif %}</td>
                                     <td>{% if 'low_energy_level' in risk_analysis.E %}X{% else %}-{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>Anmärkning</td>
+                                    <td>{% if 'note' in risk_analysis.A %}<i class="fa fa-circle text-danger"></i>{% else %}-{% endif %}</td>
+                                    <td>{% if 'note' in risk_analysis.B %}<i class="fa fa-circle text-danger"></i>{% else %}-{% endif %}</td>
+                                    <td>{% if 'note' in risk_analysis.C %}<i class="fa fa-circle text-danger"></i>{% else %}-{% endif %}</td>
+                                    <td>{% if 'note' in risk_analysis.D %}<i class="fa fa-circle text-danger"></i>{% else %}-{% endif %}</td>
+                                    <td>{% if 'note' in risk_analysis.E %}<i class="fa fa-circle text-danger"></i>{% else %}-{% endif %}</td>
                                 </tr>
                             </tbody>
                         </table>

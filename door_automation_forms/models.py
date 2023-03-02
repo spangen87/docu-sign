@@ -111,12 +111,17 @@ class RiskAnalysis(models.Model):
         Låg risk** Om användargruppen inte passar in i beskrivningen ovan och dörrautomatiken Low Energy används.""")
     automatic_model = models.CharField(max_length=54, verbose_name='Automatisk modell')
     A = models.CharField(max_length=84, blank=True, null=True, verbose_name='A. Klämrisk*')
+    A_note = models.CharField(max_length=200, blank=True, null=True, verbose_name='Anmärkningar')
     B = models.CharField(max_length=84, blank=True, null=True, verbose_name='B. Klämrisk*')
+    B_note = models.CharField(max_length=200, blank=True, null=True, verbose_name='Anmärkningar')
     C = models.CharField(max_length=84, blank=True, null=True, verbose_name='C. Klämrisk')
+    C_note = models.CharField(max_length=200, blank=True, null=True, verbose_name='Anmärkningar')
     D = models.CharField(max_length=84, blank=True, null=True, verbose_name='D. Klämrisk')
+    D_note = models.CharField(max_length=200, blank=True, null=True, verbose_name='Anmärkningar')
     E = models.CharField(max_length=84, blank=True, null=True, verbose_name='E. Klämrisk')
+    E_note = models.CharField(max_length=200, blank=True, null=True, verbose_name='Anmärkningar')
 
-    notes = models.TextField(max_length=1000, verbose_name='Anmärkningar', help_text='Ange anmärkningar. Börja med bokstaven följt av notering. Ny anmärkning på ny rad.')
+    # notes = models.TextField(max_length=1000, verbose_name='Anmärkningar', help_text='Ange anmärkningar. Börja med bokstaven följt av notering. Ny anmärkning på ny rad.')
 
     date = models.DateField()
     supplier = models.CharField(max_length=54, verbose_name='Leverantör')

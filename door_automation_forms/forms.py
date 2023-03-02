@@ -41,6 +41,7 @@ class RiskAnalysisForm(forms.ModelForm):
         ('obstacles', 'Hinder'),
         ('safety_sensors', 'Säkerhetssensorer'),
         ('low_energy_level', 'Low Energy-nivå'),
+        ('note', 'Anmärkning'),
     )
 
     A = forms.MultipleChoiceField(
@@ -72,6 +73,37 @@ class RiskAnalysisForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False,
         label="E. Klämrisk")
+
+    A_note = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 3, 'cols': 40}),
+        label='Anmärkningar',
+        label_suffix=': ',
+    )
+    B_note = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 3, 'cols': 40}),
+        label='Anmärkningar',
+        label_suffix=': ',
+    )
+    C_note = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 3, 'cols': 40}),
+        label='Anmärkningar',
+        label_suffix=': ',
+    )
+    D_note = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 3, 'cols': 40}),
+        label='Anmärkningar',
+        label_suffix=': ',
+    )
+    E_note = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 3, 'cols': 40}),
+        label='Anmärkningar',
+        label_suffix=': ',
+    )
 
     date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
