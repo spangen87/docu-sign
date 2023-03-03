@@ -113,12 +113,33 @@ class RiskAnalysisForm(forms.ModelForm):
 
 
 class InstallationDescriptionForm(forms.ModelForm):
-
     date_in_use = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    object_name = forms.ModelChoiceField(
+        queryset=Object.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_object_name', 'onchange': 'filter_doors()'}),
+        label='Välj objekt'
+    )
+    door_name = forms.ModelChoiceField(
+        queryset=RiskAnalysis.objects.none(),
+        widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_door_name'}),
+        label='Välj dörr'
+    )
 
     class Meta:
         model = InstallationDescription
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'object_name' in self.data:
+            try:
+                object_id = int(self.data.get('object_name'))
+                self.fields['door_name'].queryset = RiskAnalysis.objects.filter(object_name_id=object_id)
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty RiskAnalysis queryset
+        elif self.instance.pk:
+            self.fields['door_name'].queryset = self.instance.object_name.riskanalysis_set.order_by('door_name')
+
 
 
 class ServiceForm(forms.ModelForm):

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from .models import Object, ControlChart, RiskAnalysis, InstallationDescription, Service
 from .forms import ObjectForm, ControlChartForm, RiskAnalysisForm, InstallationDescriptionForm, ServiceForm
-from django.http import FileResponse, HttpResponse
+from django.http import FileResponse, HttpResponse, JsonResponse
 from django.template.loader import get_template, render_to_string
 from django.db.models import Q
 from django.db.models.functions import Lower
@@ -418,6 +418,18 @@ def new_installation_description(request):
     template = 'door_automation_forms/ny_installationsbeskrivning.html'
 
     return render(request, template, context)
+
+
+def ajax_door_names(request):
+    # Get the object_id parameter from the AJAX request
+    object_id = request.GET.get('object_id')
+    
+    # Get the list of door_names that are associated with the selected object
+    doors = RiskAnalysis.objects.filter(object_id=object_id)
+    door_names = [(d.id, d.door_id) for d in doors]
+    
+    # Return the door_names as JSON
+    return JsonResponse(door_names, safe=False)
 
 
 @login_required

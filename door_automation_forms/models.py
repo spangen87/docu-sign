@@ -103,7 +103,7 @@ class RiskAnalysis(models.Model):
         ('HIGH', 'Hög risk'),
     ]
 
-    object = models.ForeignKey('Object', on_delete=models.CASCADE)
+    object = models.ForeignKey('Object', on_delete=models.CASCADE, related_name='riskanalysis_set')
     door_id = models.CharField(max_length=50, verbose_name='Dörr-ID/platsbeskrivning')
     risk = models.CharField(max_length=4, choices=RISK, verbose_name='Risknivå', help_text="""Hög risk* Om användarna till stor del är äldre,
         funktionshindrade personer eller barn kan all kontakt mellan dörrbladen/dörrkonstruktionen och användaren betraktas som riskfylld.
@@ -153,12 +153,12 @@ class InstallationDescription(models.Model):
         ('GLASS', 'Glas'),
     ]
 
+    object_name = models.ForeignKey(Object, on_delete=models.CASCADE)
+    door_name = models.ForeignKey(RiskAnalysis, on_delete=models.CASCADE)
     batch_number = models.CharField(max_length=24, verbose_name='Automatik serie-/batch-nr')
     date_in_use = models.DateField(verbose_name='Datum för driftsättning')
     installed_by = models.CharField(max_length=54, verbose_name='Installerad av företag')
     technician = models.CharField(max_length=54, verbose_name='v/tekniker')
-    object_name = models.ForeignKey(Object, on_delete=models.CASCADE)
-    door_name = models.ForeignKey(RiskAnalysis, on_delete=models.CASCADE)
     door_type = models.CharField(max_length=6, choices=DOOR_TYPE_CHOICES, verbose_name='Dörrparti')
     weight = models.CharField(max_length=24, verbose_name='Antagen vikt per dörrblad')
     width = models.CharField(max_length=24, verbose_name='Total bredd')
