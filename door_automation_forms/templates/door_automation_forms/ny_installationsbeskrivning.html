@@ -16,7 +16,8 @@
     <div class="row">
         <div class="col-12 col-md-6 text-left mx-auto mb-5">
             {{ form.media }}
-            <form method="POST" id="installation-description-form" action="{% url 'new_installation_description' %}" class="form" enctype="multipart/form-data">
+            <form method="POST" id="installation-description-form" action="{% url 'new_installation_description' %}"
+                class="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <button type="submit" class="btn btn-info text-uppercase mb-5 mr-2">Spara</button>
@@ -31,38 +32,44 @@
 {% endblock %}
 
 {% block postloadjs %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     function filter_doors() {
         var objectSelect = document.getElementById('id_object_name');
         var doorSelect = document.getElementById('id_door_name');
         var objectId = objectSelect.value;
-    
+
         // Remove all previous options from door select
         while (doorSelect.options.length > 0) {
             doorSelect.remove(0);
         }
-    
+
         // Add empty option to door select
         var emptyOption = document.createElement('option');
         emptyOption.text = '---------';
         emptyOption.value = '';
         doorSelect.add(emptyOption);
-    
+
         if (objectId) {
-            $.get('/ajax/get_doors/', {object_id: objectId}, function(data) {
-            var doors = JSON.parse(data);
-            for (var i = 0; i < doors.length; i++) {
-                var door = doors[i];
-                var option = document.createElement('option');
-                option.text = door.fields.door_name;
-                option.value = door.pk;
-                doorSelect.add(option);
-            }
+            $.ajax({
+                url: '/forms/ajax/door_names/',
+                data: {
+                    'object_id': objectId
+                },
+                dataType: 'json',
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var door = data[i];
+                        var option = document.createElement('option');
+                        option.text = door[1];
+                        option.value = door[0];
+                        doorSelect.add(option);
+                    }
+                }
             });
         }
-        }
-    
-        </script>
+    }
+</script>
 
 {% endblock %}

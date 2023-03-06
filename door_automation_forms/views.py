@@ -423,11 +423,11 @@ def new_installation_description(request):
 def ajax_door_names(request):
     # Get the object_id parameter from the AJAX request
     object_id = request.GET.get('object_id')
-    
-    # Get the list of door_names that are associated with the selected object
+
+    # Get the list of door_names that are associated with RiskAnalysis objects for the selected object
     doors = RiskAnalysis.objects.filter(object_id=object_id)
-    door_names = [(d.id, d.door_id) for d in doors]
-    
+    door_names = list(doors.values_list('id', 'door_id'))
+
     # Return the door_names as JSON
     return JsonResponse(door_names, safe=False)
 
