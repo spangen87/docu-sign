@@ -143,11 +143,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for service in services %}
                             <tr>
-                                <td></td>
-                                <td><a class="btn btn-info btn-sm" href="#">Se hela</a></td>
-                                <td><a class="btn btn-info btn-sm" href="#">Ladda ner</a></td>
+                                <td>{{ service.date }}</td>
+                                <td><a class="btn btn-info btn-sm" href="{% url 'service_details' service_id=service.pk %}">Se hela</a></td>
+                                <td><a class="btn btn-info btn-sm disabled" href="#">Ladda ner</a></td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

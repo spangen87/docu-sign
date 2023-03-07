@@ -15,7 +15,7 @@
         <div class="col-12 text-center mb-2">
             <a class="btn btn-info mt-3 btn-sm" href="#">Redigera Service</a>
             <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'service' %}">Alla Servicar</a>
-            <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'installation_description_details' installation_description_id=service.door_automatic.pk %}">Till Dörren</a>
+            <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'installation_description_details' installation_description_id=service.door_automatic.pk %}">Till Automatiken</a>
             <a class="btn btn-secondary mt-3 btn-sm" href="#">Skapa PDF</a>
         </div>
     </div>
@@ -92,27 +92,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5>Utförda servicar</h5>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Datum</th>
-                                <th scope="col">Mer info</th>
-                                <th scope="col">PDF</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td><a class="btn btn-info btn-sm" href="#">Se hela</a></td>
-                                <td><a class="btn btn-info btn-sm" href="#">Ladda ner</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        
         </div>
     </div>
 </div>

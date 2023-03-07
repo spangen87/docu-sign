@@ -487,8 +487,10 @@ def installation_description_details(request, installation_description_id):
     View details of a object
     """
     description = get_object_or_404(InstallationDescription, pk=installation_description_id)
+    services = Service.objects.filter(door_automatic=description)
     context = {
         'description': description,
+        'services': services,
     }
     template = 'door_automation_forms/installationsbeskrivning_detaljer.html'
 
