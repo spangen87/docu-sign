@@ -34,7 +34,7 @@
                         <tr>
                             <td>{{ service.door_automatic }}</td>
                             <td>{{ service.date }}</td>
-                            <td><a class="btn btn-info btn-sm mb-1 mt-1" href="#">Läs
+                            <td><a class="btn btn-info btn-sm mb-1 mt-1" href="{% url 'service_details' service.id %}">Läs
                                     Mer</a></td>
                         </tr>
                         {% endfor %}

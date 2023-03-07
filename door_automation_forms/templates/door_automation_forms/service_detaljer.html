@@ -15,7 +15,7 @@
         <div class="col-12 text-center mb-2">
             <a class="btn btn-info mt-3 btn-sm" href="#">Redigera Service</a>
             <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'service' %}">Alla Servicar</a>
-            <a class="btn btn-secondary mt-3 btn-sm" href="#">Till Objektet</a>
+            <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'installation_description_details' installation_description_id=service.door_automatic.pk %}">Till Dörren</a>
             <a class="btn btn-secondary mt-3 btn-sm" href="#">Skapa PDF</a>
         </div>
     </div>
