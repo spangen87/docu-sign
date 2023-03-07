@@ -24,5 +24,6 @@ urlpatterns = [
     path('redigera_installationsbeskrivning/<int:installation_description_id>', views.edit_installation_description, name='edit_installation_description'),
     path('ny_service/', views.new_service, name='new_service'),
     path('service/', views.service, name='service'),
+    path('service_detaljer/<int:service_id>', views.service_details, name='service_details'),
     path('ajax/door_names/', views.ajax_door_names, name='ajax_door_names'),
 ]

@@ -620,3 +620,16 @@ def service(request):
     }
 
     return render(request, template, context)
+
+
+def service_details(request, service_id):
+    """
+    View details of a service
+    """
+    service = get_object_or_404(Service, pk=service_id)
+    context = {
+        'service': service,
+    }
+    template = 'door_automation_forms/service_detaljer.html'
+
+    return render(request, template, context)

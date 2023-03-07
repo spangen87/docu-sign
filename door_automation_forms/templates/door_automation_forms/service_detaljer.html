@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+{% load jsignature_filters %}
+
+{% block title %}Service Detaljer{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-12 col-md-6 my-auto mx-auto text-center">
+            <h3 class="pt-5 mt-3">
+                Detaljer för: {{ service.door_automatic }}
+            </h3>
+        </div>
+        <div class="col-12 text-center mb-2">
+            <a class="btn btn-info mt-3 btn-sm" href="#">Redigera Service</a>
+            <a class="btn btn-secondary mt-3 btn-sm" href="{% url 'service' %}">Alla Servicar</a>
+            <a class="btn btn-secondary mt-3 btn-sm" href="#">Till Objektet</a>
+            <a class="btn btn-secondary mt-3 btn-sm" href="#">Skapa PDF</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 text-left mx-auto mb-5">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <p><strong>Date:</strong></p>
+                    <p> {{ service.date }}</p>
+                    <p><strong>Batch/Serienummer:</strong></p>
+                    <p>{{ service.door_automatic }}</p>
+                    <p><strong>Utförande företag:</strong></p>
+                    <p>{{ service.company }}</p>
+                    <p><strong>Tekniker:</strong></p>
+                    <p>{{ service.technician }}</p>
+                    <p><strong>Signatur:</strong></p>
+                    <p><img src="{{ service.signature|signature_base64 }}" alt="{{ service.technician }}"></p>
+                    <hr>
+
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 text-left mx-auto mb-5">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <p><strong>Periodisk kontroll och underhåll:</strong>
+                        {% if service.periodic_control %}
+                        <i class="fa fa-check text-success"></i></p>
+                        {% else %}
+                        <i class="fa fa-minus text-danger"></i>
+                    {% endif %}
+
+                    {% if service.periodic_control_notes %}
+                    <p>{{ service.periodic_control_notes }}</p>
+                    {% endif %}
+                    <hr>
+
+                    <p><strong>Beställd reparation:</strong>
+                        {% if service.repair_ordered %}
+                        <i class="fa fa-check text-success"></i></p>
+                        {% else %}
+                        <i class="fa fa-minus text-danger"></i>
+                    {% endif %}
+
+                    {% if service.repair_ordered_notes %}
+                    <p>{{ service.repair_ordered_notes }}</p>
+                    {% endif %}
+                    <hr>
+
+                    <p><strong>Ändring av installation:</strong>
+                        {% if service.installation_changed %}
+                        <i class="fa fa-check text-success"></i></p>
+                        {% else %}
+                        <i class="fa fa-minus text-danger"></i>
+                    {% endif %}
+
+                    {% if service.installation_changed_notes %}
+                    <p>{{ service.installation_changed_notes }}</p>
+                    {% endif %}
+                    <hr>
+
+                    <p><strong>Annat:</strong>
+                        {% if service.other %}
+                        <i class="fa fa-check text-success"></i></p>
+                        {% else %}
+                        <i class="fa fa-minus text-danger"></i>
+                    {% endif %}
+
+                    {% if service.other_notes %}
+                    <p>{{ service.other_notes }}</p>
+                    {% endif %}
+                    <hr>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5>Utförda servicar</h5>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Mer info</th>
+                                <th scope="col">PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td><a class="btn btn-info btn-sm" href="#">Se hela</a></td>
+                                <td><a class="btn btn-info btn-sm" href="#">Ladda ner</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
