@@ -1,0 +1,35 @@
+.footer {
+    background-color: lightgray;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #00AEEF;
+    border-color: #00AEEF;
+}
+
+.message-container {
+    z-index: 9999999999;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  @media (min-width: 768px) {
+    .message-container {
+      width: 50vw;
+      max-width: 300px;
+    }
+  }
+
+.toast {
+    background: #fff;
+    z-index: 9999999999;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
