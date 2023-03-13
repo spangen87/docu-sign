@@ -53,8 +53,8 @@ class ControlChart(models.Model):
     ]
 
     object = models.ForeignKey('Object', on_delete=models.CASCADE)
-    door_type = models.CharField(max_length=6, choices=DOOR_TYPE_CHOICES, verbose_name='Dörrtyp')
     position_id = models.ForeignKey('RiskAnalysis', on_delete=models.CASCADE, verbose_name='Dörr ID')
+    door_type = models.CharField(max_length=6, choices=DOOR_TYPE_CHOICES, verbose_name='Dörrtyp')
     done_by = models.CharField(max_length=54, verbose_name='Utfört av')
     date = models.DateField()
 
