@@ -27,3 +27,46 @@
 </div>
 
 {% endblock %}
+
+{% block postloadjs %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function filter_doors() {
+        var objectSelect = document.getElementById('id_object');
+        var doorSelect = document.getElementById('id_position_id');
+        var objectId = objectSelect.value;
+
+        // Remove all previous options from door select
+        while (doorSelect.options.length > 0) {
+            doorSelect.remove(0);
+        }
+
+        // Add empty option to door select
+        var emptyOption = document.createElement('option');
+        emptyOption.text = '---------';
+        emptyOption.value = '';
+        doorSelect.add(emptyOption);
+
+        if (objectId) {
+            $.ajax({
+                url: '/forms/ajax/door_names/',
+                data: {
+                    'object_id': objectId
+                },
+                dataType: 'json',
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var door = data[i];
+                        var option = document.createElement('option');
+                        option.text = door[1];
+                        option.value = door[0];
+                        doorSelect.add(option);
+                    }
+                }
+            });
+        }
+    }
+</script>
+
+{% endblock %}
